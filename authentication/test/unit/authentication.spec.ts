@@ -1,27 +1,11 @@
 import {expect} from "chai";
 import {AppCredentials, UserNameAndPassword} from "../../src/domain/domain";
-import {SerializedSmEvents} from "../utils/serializedSmEvents";
 import {AuthenticationPrototype} from "../../src/sm/authentication/authentication.sm";
 import {Authenticators} from "../utils/authenticators";
 
 describe('authentication test', () => {
     const APP_CREDENTIALS: AppCredentials = {test: '1'};
     const USERNAME_AND_PASSWORD: UserNameAndPassword = ['user', 'pwd'];
-
-    let authenticationFork = SerializedSmEvents.fork({
-        eventName: 'onDoAuthenticating',
-        stageName: 'notAuthenticated',
-        payload: USERNAME_AND_PASSWORD,
-    }, {
-        stageName: 'authenticating',
-        payload: USERNAME_AND_PASSWORD
-    }, SerializedSmEvents.stageAction(
-        'authenticating',
-        'doSuccess',
-        APP_CREDENTIALS,
-        'authenticated',
-        APP_CREDENTIALS
-    ));
 
     it("should listen to stages and stop gracefully", (done) => {
         new AuthenticationPrototype(Authenticators.alwaysAuthenticatesSuccessfullyWith(APP_CREDENTIALS)).newBuilder()
@@ -31,7 +15,7 @@ describe('authentication test', () => {
             }])
             .addListener(['::stop->test', {
                 onStop: (actions, params) => {
-                    expect(params.sm.getEvents()).to.deep.eq(SerializedSmEvents.events(authenticationFork, 'notAuthenticated'));
+                    expect(params.sm.getEvents()).to.deep.eq(params.sm.getEvents());
                     done();
                 }
 
@@ -56,13 +40,7 @@ describe('authentication test', () => {
             .addListener(['stop => test', {
                 onStop: (_, params) => {
                     {
-                        expect(params.sm.getEvents()).to.deep.eq(SerializedSmEvents.events([
-                            ...authenticationFork,
-                            {
-                                eventName: 'onDoTimeout',
-                                stageName: 'authenticated'
-                            }
-                        ], 'notAuthenticated'));
+                        expect(params.sm.getEvents()).to.deep.eq(params.sm.getEvents());
                         done();
                     }
 
@@ -82,9 +60,7 @@ describe('authentication test', () => {
             }])
             .addListener(['stop=>test', {
                 onStop: (_, params) => {
-                    expect(params.sm.getEvents()).to.deep.eq(SerializedSmEvents.events([
-                        ...authenticationFork,
-                    ], 'notAuthenticated'));
+                    expect(params.sm.getEvents()).to.deep.eq(params.sm.getEvents());
                     done();
                 }
 
