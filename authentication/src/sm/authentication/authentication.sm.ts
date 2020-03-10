@@ -1,4 +1,3 @@
-import {StateMachine} from "../../../../../conan-ui-core/src/lib/conan-sm/stateMachine";
 import {
     AuthenticatingActions,
     AuthenticatingListener,
@@ -13,14 +12,14 @@ import {
 } from "./stages/notAuthenticated.stage";
 import {
     AuthenticatedActions,
-    AuthenticatedJoiner,
     AuthenticatedListener,
     AuthenticatedStage,
     AuthenticatedStageName
 } from "./stages/authenticated.stage";
-import {IBiConsumer} from "../../../../../conan-ui-core/src/lib/conan-utils/typesHelper";
-import {BasicSmListener} from "../../../../../conan-ui-core/src/lib/conan-sm/stateMachineListeners";
 import {AppCredentials, UserNameAndPassword} from "../../domain/domain";
+import {IBiConsumer} from "../../../lib/conan-utils/typesHelper";
+import {BasicSmListener} from "../../../lib/conan-sm/stateMachineListeners";
+import {StateMachine} from "../../../lib/conan-sm/stateMachine";
 
 
 export class AuthenticatedActionsLogic implements AuthenticatedActions {

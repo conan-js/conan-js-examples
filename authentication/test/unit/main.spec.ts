@@ -1,16 +1,13 @@
 import {expect} from "chai";
-import {SerializedSmEvents} from "../../../../conan-ui-core/src/test/utils/serializedSmEvents";
-import {defaultTranslations, Translations} from "../../../../conan-ui-core/src/main/domain/translations";
-import {Authenticators} from "../../../../conan-ui-core/src/test/utils/authenticators";
-import {MainSm} from "../../../../conan-ui-core/src/main/sm/main/main.sm";
-import {
-    AuthenticationPrototype,
-    AuthenticationSmJoiner,
-    AuthenticationSmListener
-} from "../../../../conan-ui-core/src/main/sm/authentication/authentication.sm";
-import {ListenerType} from "../../../../conan-ui-core/src/lib/conan-sm/stateMachineListeners";
+import {defaultTranslations, Translations} from "../../src/domain/translations";
+import {SerializedSmEvents} from "../utils/serializedSmEvents";
+import {MainSm} from "../../src/sm/main/main.sm";
+import {ListenerType} from "../../lib/conan-sm/stateMachineListeners";
+import {AuthenticationPrototype, AuthenticationSmListener} from "../../src/sm/authentication/authentication.sm";
+import {AuthenticationSmJoiner} from "../../dist/conan-ui-core/src/main/sm/authentication/authentication.sm";
+import {Authenticators} from "../utils/authenticators";
 
-describe('test', () => {
+describe('main test', () => {
     const TRANSLATIONS: Translations = defaultTranslations;
 
     let initializationFork = SerializedSmEvents.fork({

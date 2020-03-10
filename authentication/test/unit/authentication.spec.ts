@@ -4,7 +4,7 @@ import {SerializedSmEvents} from "../utils/serializedSmEvents";
 import {AuthenticationPrototype} from "../../src/sm/authentication/authentication.sm";
 import {Authenticators} from "../utils/authenticators";
 
-describe('test', () => {
+describe('authentication test', () => {
     const APP_CREDENTIALS: AppCredentials = {test: '1'};
     const USERNAME_AND_PASSWORD: UserNameAndPassword = ['user', 'pwd'];
 
