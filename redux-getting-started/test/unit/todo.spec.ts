@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import {ListenerType} from "../../../../conan-ui-core/src/lib/conan-sm/stateMachineListeners";
 import {SmController} from "../../../../conan-ui-core/src/lib/conan-sm/_domain";
-import {TodoListData, TodoListStoreFactory} from "../../src/todoList.sm";
-import {ToDo, ToDoStatus} from "../../src/domain";
+import {TodoListData, TodoListStateMachineFactory} from "../../src/todoList.sm";
+import {ToDo, ToDoStatus} from "../../src/domain/domain";
 
 describe('test todo list as in redux GS', () => {
     const INITIAL_STATE: TodoListData = {
@@ -17,7 +17,7 @@ describe('test todo list as in redux GS', () => {
     };
 
     it('should work', () => {
-        let sm: SmController<any, any> = TodoListStoreFactory(INITIAL_STATE)
+        let sm: SmController<any, any> = TodoListStateMachineFactory(INITIAL_STATE)
             .addListener([`::nextTodoList=>addTodo`, {
                 onNextTodoList: (actions) => actions.addTodo(INITIAL_TODO)
             }], ListenerType.ONCE)

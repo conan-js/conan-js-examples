@@ -1,4 +1,4 @@
-import {ToDo, ToDoStatus} from "./domain";
+import {ToDo, ToDoStatus} from "./domain/domain";
 import {StateMachine} from "../lib/conan-sm/stateMachine";
 import {OnEventCallback, SmListener} from "../lib/conan-sm/stateMachineListeners";
 import {Stage} from "../lib/conan-sm/stage";
@@ -24,33 +24,37 @@ export interface TodoListListener extends SmListener<TodoListActions> {
     onNextTodoList?: OnEventCallback<TodoListActions>;
 }
 
-export let TodoListStoreFactory = (initialData: TodoListData): StateMachine<TodoListListener> =>
+export let TodoListStateMachineFactory = (initialData: TodoListData): StateMachine<TodoListListener> =>
     new StateMachine<TodoListListener>()
         .withInitialState('nextTodoList', initialData)
         .withState<TodoListActions, TodoListData>('nextTodoList', (currentState) => ({
             toggleTodo: (todoId: string): NextTodoList => ({
-                state: 'nextTodoList',
+                nextState: 'nextTodoList',
                 data: {
-                    todos: [...currentState.todos],
+                    todos: currentState.todos.map( todo =>
+                        (todo.id == todoId)
+                            ? {...todo, status: (todo.status === ToDoStatus.PENDING ? ToDoStatus.COMPLETED : ToDoStatus.PENDING)}
+                            : todo,
+                    ),
                     appliedFilter: currentState.appliedFilter
                 }
             }),
             addTodo: (todo: ToDo): NextTodoList => ({
-                state: 'nextTodoList',
+                nextState: 'nextTodoList',
                 data: {
                     todos: [...currentState.todos, todo],
                     appliedFilter: currentState.appliedFilter
                 }
             }),
             filterAll: (): NextTodoList => ({
-                state: 'nextTodoList',
+                nextState: 'nextTodoList',
                 data: {
                     todos: currentState.todos,
                     appliedFilter: undefined
                 }
             }),
             filterByStatus: (status: ToDoStatus): NextTodoList => ({
-                state: 'nextTodoList',
+                nextState: 'nextTodoList',
                 data: {
                     todos: currentState.todos,
                     appliedFilter: [status]
