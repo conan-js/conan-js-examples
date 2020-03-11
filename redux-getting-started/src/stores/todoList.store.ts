@@ -1,4 +1,4 @@
-import {ToDo, ToDoStatus} from "./domain/domain";
+import {ToDo, ToDoStatus} from "../domain/domain";
 import {StoreFactory, Store} from "conan-ui-core/src/lib/conan-store/store";
 
 export interface TodoListData {

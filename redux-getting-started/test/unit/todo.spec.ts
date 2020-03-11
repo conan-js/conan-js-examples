@@ -2,7 +2,7 @@ import {expect} from "chai";
 import {ListenerType} from "conan-ui-core/src/lib/conan-sm/stateMachineListeners";
 import {SmController} from "conan-ui-core/src/lib/conan-sm/_domain";
 import {ToDo, ToDoStatus} from "../../src/domain/domain";
-import {TodoListData, TodoListStoreFactory} from "../../src/todoList.store";
+import {TodoListData, TodoListStoreFactory} from "../../src/stores/todoList.store";
 
 describe('test todo list as in redux GS', () => {
     const INITIAL_STATE: TodoListData = {
