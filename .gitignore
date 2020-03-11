@@ -1,3 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
-/authentication/node_modules/
-/authentication/dist/
+./authentication/node_modules/
+./authentication/dist/
+./authentication/.idea/
+./authentication/dist/
+redux-getting-started/node_modules
+.idea
