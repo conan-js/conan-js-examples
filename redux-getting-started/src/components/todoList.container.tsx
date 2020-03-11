@@ -1,8 +1,8 @@
-import {TodoListActions, TodoListData, TodoListStateMachineFactory} from "../todoList.sm";
 import * as React from "react";
 import {ReactElement} from "react";
 import {ToDo, ToDoStatus} from "../domain/domain";
-import {ICallback, IConsumer} from "../../../../conan-ui-core/src/lib/conan-utils/typesHelper";
+import {ICallback, IConsumer} from "conan-ui-core/src/lib/conan-utils/typesHelper";
+import {TodoListActions, TodoListData, TodoListStoreFactory} from "../todoList.store";
 
 interface TodoListContainerState {
     actions: TodoListActions;
@@ -11,11 +11,11 @@ interface TodoListContainerState {
 
 export class TodoListContainer extends React.Component<{}, TodoListContainerState> {
 
-    private stateMachine = TodoListStateMachineFactory({
+    private stateMachine = TodoListStoreFactory({
         appliedFilter: undefined,
         todos: []
     }).addListener([`::nextToDoList->render`, {
-        onNextTodoList: (actions, params) => this.setState({
+        onNextData: (actions, params) => this.setState({
             actions,
             data: params.sm.getState()
         })

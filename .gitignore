@@ -5,3 +5,6 @@
 ./authentication/dist/
 redux-getting-started/node_modules
 .idea
+/authentication/dist/
+/redux-getting-started/dist/
+/authentication/node_modules/
