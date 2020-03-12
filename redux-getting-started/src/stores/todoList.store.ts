@@ -1,9 +1,9 @@
-import {ToDo, ToDoStatus} from "../domain/domain";
-import {StoreFactory, Store} from "conan-ui-core/src/lib/conan-store/store";
+import {ToDo, ToDoStatus, VisibilityFilters} from "../domain/domain";
+import {Store, StoreFactory} from "conan-ui-core/src/lib/conan-store/store";
 
 export interface TodoListData {
     todos: ToDo[];
-    appliedFilter: ToDoStatus [];
+    appliedFilter: VisibilityFilters;
 }
 
 export interface TodoListActions {
@@ -11,9 +11,7 @@ export interface TodoListActions {
 
     addTodo(todo: ToDo): TodoListData;
 
-    filterAll(): TodoListData;
-
-    filterByStatus(status: ToDoStatus): TodoListData;
+    filter(filter: VisibilityFilters): TodoListData;
 }
 
 export let TodoListStoreFactory = (initialData?: TodoListData): Store<TodoListActions> => StoreFactory.create(
@@ -32,13 +30,10 @@ export let TodoListStoreFactory = (initialData?: TodoListData): Store<TodoListAc
             todos: [...currentState.todos, todo],
             appliedFilter: currentState.appliedFilter
         }),
-        filterAll: (): TodoListData => ({
+        filter: (filter: VisibilityFilters): TodoListData => (
+            {
             todos: currentState.todos,
-            appliedFilter: undefined
-        }),
-        filterByStatus: (status: ToDoStatus): TodoListData => ({
-            todos: currentState.todos,
-            appliedFilter: [status]
+            appliedFilter: filter
         })
     })
 );
