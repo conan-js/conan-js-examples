@@ -12,7 +12,7 @@ export const TodoListConnector = PropsInjector
             appliedFilter: []
         }),
         TodoList,
-        (params) => ({
+        params => ({
             todos: params.data.todos,
             actions: params.actions
         })

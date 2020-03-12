@@ -1,4 +1,4 @@
-import {IConsumer} from "conan-ui-core/lib/src/lib/conan-utils/typesHelper";
+import {IConsumer} from "conan-ui-core/src/lib/conan-utils/typesHelper";
 import {ToDo, ToDoStatus} from "../domain/domain";
 import * as React from "react";
 
