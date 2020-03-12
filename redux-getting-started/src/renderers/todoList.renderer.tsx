@@ -23,7 +23,7 @@ export const TodoList = (props: TodoListProps): ReactElement => <div className="
             />
         )}
     </ul>
-    <Footer onFilter={props.actions.filter}/>
+    <Footer onFilter={props.actions.filter} appliedFilter={props.todoListData.appliedFilter}/>
 </div>;
 
 const Link = ({active, children, onClick}: { active: boolean, children: ReactElement[], onClick: ICallback }) => (
@@ -38,22 +38,22 @@ const Link = ({active, children, onClick}: { active: boolean, children: ReactEle
     </button>
 )
 
-const FilterLink = ({filter, onClick, children}: { filter: VisibilityFilters, onClick: IConsumer<VisibilityFilters>, children: any }) => (
-    <Link active={false} onClick={() => onClick(filter)}>
+const FilterLink = ({filter, onClick, active, children}: { filter: VisibilityFilters, onClick: IConsumer<VisibilityFilters>, active: boolean, children: any }) => (
+    <Link active={active} onClick={() => onClick(filter)}>
         {children}
     </Link>
 );
 
-export const Footer = ({onFilter}: { onFilter: IConsumer<VisibilityFilters> }) => (
+export const Footer = ({onFilter, appliedFilter}: { onFilter: IConsumer<VisibilityFilters> , appliedFilter: VisibilityFilters}) => (
     <div>
         <span>Show: </span>
-        <FilterLink filter={VisibilityFilters.SHOW_ALL} onClick={onFilter}>
+        <FilterLink filter={VisibilityFilters.SHOW_ALL} active={appliedFilter===VisibilityFilters.SHOW_ALL} onClick={onFilter}>
             All
         </FilterLink>
-        <FilterLink filter={VisibilityFilters.SHOW_ACTIVE} onClick={onFilter}>
+        <FilterLink filter={VisibilityFilters.SHOW_ACTIVE} active={appliedFilter===VisibilityFilters.SHOW_ACTIVE} onClick={onFilter}>
             Active
         </FilterLink>
-        <FilterLink filter={VisibilityFilters.SHOW_COMPLETED} onClick={onFilter}>
+        <FilterLink filter={VisibilityFilters.SHOW_COMPLETED} active={appliedFilter===VisibilityFilters.SHOW_COMPLETED} onClick={onFilter}>
             Completed
         </FilterLink>
     </div>
