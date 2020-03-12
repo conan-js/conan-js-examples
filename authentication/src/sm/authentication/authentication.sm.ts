@@ -25,13 +25,13 @@ import {StateMachine} from "../../../lib/conan-sm/stateMachine";
 export class AuthenticatedActionsLogic implements AuthenticatedActions {
     doLogout(): NotAuthenticatedStage {
         return {
-            state: "notAuthenticated",
+            stateName: "notAuthenticated",
         };
     }
 
     doTimeout(): NotAuthenticatedStage {
         return {
-            state: "notAuthenticated",
+            stateName: "notAuthenticated",
         };
     }
 
@@ -41,13 +41,13 @@ export class AuthenticatingActionsLogic implements AuthenticatingActions {
     doSuccess(appCredentials: AppCredentials): AuthenticatedStage {
         return {
             data: appCredentials,
-            state: 'authenticated'
+            stateName: 'authenticated'
         };
     }
 
     doUnauthorised(): NotAuthenticatedStage {
         return {
-            state: 'notAuthenticated'
+            stateName: 'notAuthenticated'
         };
     }
 
@@ -56,7 +56,7 @@ export class AuthenticatingActionsLogic implements AuthenticatingActions {
 export class NotAuthenticatedActionsLogic implements NotAuthenticatedActions {
     doAuthenticating(userNameAndPassword: UserNameAndPassword): AuthenticatingStage {
         return {
-            state: 'authenticating',
+            stateName: 'authenticating',
             data: userNameAndPassword
         };
     }
@@ -74,14 +74,8 @@ export class AuthenticationPrototype {
     }
 
     newBuilder(): StateMachine<AuthenticationSmListener> {
-        return new StateMachine([`::start=>doNotAuth`, {
-            onStart: (_, params) => params.sm.requestTransition({
-                transition: {
-                    state: 'notAuthenticated'
-                },
-                actionName: 'doNotAuthenticated'
-            })
-        }])
+        return new StateMachine()
+            .withInitialState('notAuthenticated')
             .withState<
                 NotAuthenticatedActions,
                 NotAuthenticatedStageName

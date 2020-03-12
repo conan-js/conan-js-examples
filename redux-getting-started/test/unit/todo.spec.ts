@@ -21,8 +21,7 @@ describe('test todo list as in redux GS', () => {
             .addListener([`::nextTodoList=>addTodo`, {
                 onNextData: (actions) => actions.addTodo(INITIAL_TODO)
             }], ListenerType.ONCE)
-            .start('todo-list-store')
-            .stop();
+            .start('todo-list-store');
 
         expect(sm.getStateData()).to.deep.eq({
             todos: [INITIAL_TODO],
