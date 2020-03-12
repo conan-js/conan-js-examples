@@ -16,7 +16,7 @@ export interface TodoListActions {
     filterByStatus(status: ToDoStatus): TodoListData;
 }
 
-export let TodoListStoreFactory = (initialData: TodoListData): Store<TodoListActions> => StoreFactory.create(
+export let TodoListStoreFactory = (initialData?: TodoListData): Store<TodoListActions> => StoreFactory.create(
     initialData,
     (currentState) => ({
         toggleTodo: (todoId: string): TodoListData => ({

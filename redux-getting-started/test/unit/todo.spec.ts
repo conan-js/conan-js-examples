@@ -24,7 +24,7 @@ describe('test todo list as in redux GS', () => {
             .start('todo-list-store')
             .stop();
 
-        expect(sm.getState()).to.deep.eq({
+        expect(sm.getStateData()).to.deep.eq({
             todos: [INITIAL_TODO],
             appliedFilter: undefined
         });

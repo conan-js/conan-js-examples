@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
-import {TodoListContainer} from "./src/containers/todoList.container";
+import {TodoListConnector} from "./src/connectors/todoList.connector";
 
 
-ReactDom.render(<TodoListContainer/>,
+ReactDom.render(<TodoListConnector/>,
     document.getElementById('root')
 );

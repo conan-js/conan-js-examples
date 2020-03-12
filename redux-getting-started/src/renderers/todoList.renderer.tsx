@@ -3,13 +3,14 @@ import {ToDo, ToDoStatus} from "../domain/domain";
 import {Todo} from "./todo.renderer";
 import {AddTodo} from "./addTodo.renderer";
 import {TodoListActions} from "../stores/todoList.store";
+import {ReactElement} from "react";
 
 export interface TodoListProps {
     todos: ToDo[];
     actions: TodoListActions;
 }
 
-export const TodoList = (props: TodoListProps) => <div className="App">
+export const TodoList = (props: TodoListProps): ReactElement => <div className="App">
     <ul>
         {props.todos.map(todo =>
             <Todo
