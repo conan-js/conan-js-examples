@@ -12,6 +12,7 @@ export interface TodoListProps {
 }
 
 export const TodoList = (props: TodoListProps): ReactElement => <div className="App">
+    <AddTodo onClick={props.actions.addTodo}/>
     <ul>
         {filterToDos(props.todoListData.todos, props.todoListData.appliedFilter).map(todo =>
             <Todo
@@ -22,7 +23,6 @@ export const TodoList = (props: TodoListProps): ReactElement => <div className="
             />
         )}
     </ul>
-    <AddTodo onClick={props.actions.addTodo}/>
     <Footer onFilter={props.actions.filter}/>
 </div>;
 
