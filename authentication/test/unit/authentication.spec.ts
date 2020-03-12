@@ -2,8 +2,8 @@ import {expect} from "chai";
 import {AppCredentials, UserNameAndPassword} from "../../src/domain/domain";
 import {AuthenticationPrototype} from "../../src/sm/authentication/authentication.sm";
 import {Authenticators} from "../utils/authenticators";
-import {TransitionSmEvent} from "../../lib/conan-sm/stateMachineEvents";
-import {SerializedSmEvent} from "../../lib/conan-sm/stateMachineEvents";
+import {SerializedSmEvent, TransitionSmEvent} from "../../lib/conan-sm/stateMachineEvents";
+import {ListenerType} from "../../../../conan-ui-core/src/lib/conan-sm/stateMachineListeners";
 
 describe('authentication test', () => {
     const APP_CREDENTIALS: AppCredentials = {test: '1'};
@@ -45,63 +45,38 @@ describe('authentication test', () => {
             .addListener(['::notAuth=>doAuth,::auth=>stop', {
                 onNotAuthenticated: (actions) => actions.doAuthenticating(USERNAME_AND_PASSWORD),
             }])
-            .start('auth-test1');
+            .start('simple-auth');
 
-        let expectedEvents: SerializedSmEvent[] = [
+        expect(sm.getEvents()).to.deep.eq([
             ...initSequence,
             {transitionName: "doInitialise"},
             {stateName: "notAuthenticated"},
             AUTHENTICATED_SUCCESS_FORK_TRANSITION,
             {stateName: "authenticated", data: APP_CREDENTIALS},
-        ];
-
-        expect(sm.getEvents()).to.deep.eq(expectedEvents);
+        ]);
     });
 
-    it("should listen to stages and actions and stop gracefully", (done) => {
-        let attempts: number = 0;
-        new AuthenticationPrototype(Authenticators.alwaysAuthenticatesSuccessfullyWith(APP_CREDENTIALS)).newBuilder()
-            .addListener(['::notAuthenticated=>[authenticating|stop], ::authenticated->[doTimeout]', {
-                onNotAuthenticated: (actions, params) => {
-                    if (attempts === 1) {
-                        params.sm.stop();
-                        return;
-                    }
-                    attempts++;
-                    actions.doAuthenticating(USERNAME_AND_PASSWORD);
-                },
-                onAuthenticated: (actions, params) => setTimeout(() => actions.doTimeout()),
-            }])
-            .addListener(['stop => test', {
-                onStop: (_, params) => {
-                    {
-                        expect(params.sm.getEvents()).to.deep.eq(params.sm.getEvents());
-                        done();
-                    }
+    it("should listen to stages and actions and stop gracefully", () => {
+        let sm = new AuthenticationPrototype(Authenticators.alwaysAuthenticatesSuccessfullyWith(APP_CREDENTIALS)).newBuilder()
+            .addListener(['::notAuthenticated=>authenticating', {
+                onNotAuthenticated: (actions, params) => actions.doAuthenticating(USERNAME_AND_PASSWORD),
+            }], ListenerType.ONCE)
+            .addListener(['::authenticated->doTimeout', {
+                onAuthenticated: (actions, params) => actions.doTimeout()
+            }], ListenerType.ONCE)
+            .start('auth-timeout');
 
-                },
-            }])
-            .start('auth-test2')
+        expect(sm.getEvents()).to.deep.eq([
+            ...initSequence,
+            {transitionName: "doInitialise"},
+            {stateName: "notAuthenticated"},
+            AUTHENTICATED_SUCCESS_FORK_TRANSITION,
+            {stateName: "authenticated", data: APP_CREDENTIALS},
+            {transitionName: "doTimeout"},
+            {stateName: "notAuthenticated"},
+        ]);
     });
 
-
-    it("should queue a request", (done) => {
-        new AuthenticationPrototype(Authenticators.alwaysAuthenticatesSuccessfullyWith(APP_CREDENTIALS)).newBuilder()
-            .addListener(['onNotAuthenticated=>doAuthenticating', {
-                onNotAuthenticated: (actions) => actions.doAuthenticating(USERNAME_AND_PASSWORD)
-            }])
-            .addListener(['testMainListener', {
-                onAuthenticated: (actions, params) => params.sm.stop()
-            }])
-            .addListener(['stop=>test', {
-                onStop: (_, params) => {
-                    expect(params.sm.getEvents()).to.deep.eq(params.sm.getEvents());
-                    done();
-                }
-
-            }])
-            .start('auth-test4')
-    });
 
     it("should call many times into a listener", (done) => {
         let calls: string [] = [];
