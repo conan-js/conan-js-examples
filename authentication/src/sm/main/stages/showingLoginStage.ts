@@ -1,7 +1,6 @@
 import {ShowingAppStage} from "./showingApp.stage";
 import {Stage} from "../../../../lib/conan-sm/stage";
 import {OnEventCallback, SmListener} from "../../../../lib/conan-sm/stateMachineListeners";
-import {StageEntryPoint} from "../../../../lib/conan-sm/stateMachineEvents";
 
 export type ShowingLoginStageName = 'showingLogin';
 

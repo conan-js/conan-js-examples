@@ -5,34 +5,35 @@ import {Authenticators} from "../utils/authenticators";
 import {SerializedSmEvent, TransitionSmEvent} from "../../lib/conan-sm/stateMachineEvents";
 import {ListenerType} from "../../../../conan-ui-core/src/lib/conan-sm/stateMachineListeners";
 
+export const initSequence: SerializedSmEvent[] = [
+    {stateName: "init"},
+    {transitionName: "doStart"},
+    {stateName: "start"},
+];
+
+export function forkTransition(
+    transitionName: string,
+    transitionPayload: any,
+    deferStageName: string,
+    transition: TransitionSmEvent
+): SerializedSmEvent {
+    return {
+        transitionName,
+        ...transitionPayload? {payload: transitionPayload} : undefined,
+        fork: [
+            ...initSequence,
+            {transitionName, ...transitionPayload? {payload: transitionPayload} : undefined},
+            {stateName: deferStageName, ...transitionPayload? {data: transitionPayload} : undefined},
+            transition,
+            {stateName: 'stop'},
+        ]
+    };
+}
 describe('authentication test', () => {
+
     const APP_CREDENTIALS: AppCredentials = {test: '1'};
+
     const USERNAME_AND_PASSWORD: UserNameAndPassword = ['user', 'pwd'];
-
-    const initSequence: SerializedSmEvent[] = [
-        {stateName: "init"},
-        {transitionName: "doStart"},
-        {stateName: "start"},
-    ];
-
-    function forkTransition(
-        transitionName: string,
-        transitionPayload: any,
-        deferStageName: string,
-        transition: TransitionSmEvent
-    ): SerializedSmEvent {
-        return {
-            transitionName,
-            payload: transitionPayload,
-            fork: [
-                ...initSequence,
-                {transitionName, payload: transitionPayload},
-                {stateName: deferStageName, data: transitionPayload},
-                transition,
-                {stateName: 'stop'},
-            ]
-        };
-    }
 
     const AUTHENTICATED_SUCCESS_FORK_TRANSITION: SerializedSmEvent = forkTransition("doAuthenticating", USERNAME_AND_PASSWORD, "authenticating", {
         transitionName: "doSuccess",

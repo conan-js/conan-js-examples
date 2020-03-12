@@ -19,7 +19,7 @@ export interface MainSmListener extends InitializingListener, ShowingLoginListen
 class InitializingActionsLogic implements InitializingActions {
     doInitialise(translations: Translations): ShowingLoginStage {
         return {
-            state: 'showingLogin'
+            stateName: 'showingLogin'
         };
     }
 }
@@ -27,7 +27,7 @@ class InitializingActionsLogic implements InitializingActions {
 class ShowingLoginActionsLogic implements ShowingLoginActions {
     doShowApp(): ShowingAppStage {
         return {
-            state: 'showingApp'
+            stateName: 'showingApp'
         };
     }
 
@@ -43,9 +43,9 @@ export class MainSm {
         return new StateMachine([`onStart=>initializing`, {
             onStart: (_, params) => params.sm.requestTransition({
                 transition: {
-                    state: 'initializing'
+                    stateName: 'initializing'
                 },
-                actionName: 'defaultInitializing'
+                transitionName: 'doInitializing'
             })
         }])
             .withDeferredStage<
