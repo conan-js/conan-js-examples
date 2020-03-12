@@ -42,7 +42,7 @@ describe('authentication test', () => {
     it("should listen to stages and stop gracefully", () => {
 
         let sm = new AuthenticationPrototype(Authenticators.alwaysAuthenticatesSuccessfullyWith(APP_CREDENTIALS)).newBuilder()
-            .addListener(['::notAuth=>doAuth,::auth=>stop', {
+            .addListener(['::notAuth=>doAuth', {
                 onNotAuthenticated: (actions) => actions.doAuthenticating(USERNAME_AND_PASSWORD),
             }])
             .start('simple-auth');

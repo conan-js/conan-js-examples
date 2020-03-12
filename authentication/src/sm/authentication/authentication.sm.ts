@@ -2,19 +2,16 @@ import {
     AuthenticatingActions,
     AuthenticatingListener,
     AuthenticatingStage,
-    AuthenticatingStageName
 } from "./stages/authenticating.stage";
 import {
     NotAuthenticatedActions,
     NotAuthenticatedListener,
     NotAuthenticatedStage,
-    NotAuthenticatedStageName
 } from "./stages/notAuthenticated.stage";
 import {
     AuthenticatedActions,
     AuthenticatedListener,
     AuthenticatedStage,
-    AuthenticatedStageName
 } from "./stages/authenticated.stage";
 import {AppCredentials, UserNameAndPassword} from "../../domain/domain";
 import {IBiConsumer} from "../../../lib/conan-utils/typesHelper";
@@ -78,13 +75,13 @@ export class AuthenticationPrototype {
             .withInitialState('notAuthenticated')
             .withState<
                 NotAuthenticatedActions,
-                NotAuthenticatedStageName
+                'notAuthenticated'
             >(
                 'notAuthenticated',
                 NotAuthenticatedActionsLogic,
             )
             .withDeferredStage<
-                AuthenticatingStageName,
+                'authenticating',
                 AuthenticatingActions,
                 UserNameAndPassword
             >(
@@ -94,7 +91,7 @@ export class AuthenticationPrototype {
                 ['authenticated']
             ).withState<
                 AuthenticatedActions,
-                AuthenticatedStageName
+                'authenticated'
             >(
                 "authenticated",
                 AuthenticatedActionsLogic,
