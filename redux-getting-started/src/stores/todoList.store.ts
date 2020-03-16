@@ -1,5 +1,5 @@
 import {ToDo, ToDoStatus, VisibilityFilters} from "../domain/domain";
-import {Store, StoreFactory} from "conan-ui-core/src/lib/conan-store/store";
+import {Store, StoreFactory} from "conan-ui-core/src/lib/conan-sm-sugar/store";
 
 export interface TodoListData {
     todos: ToDo[];

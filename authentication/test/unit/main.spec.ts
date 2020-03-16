@@ -28,28 +28,36 @@ describe('main test', () => {
 
     });
 
-    // it("should join with an authentication sm", (done) => {
-    //     new MainSm((actions) => actions.doInitialise(TRANSLATIONS)).define()
-    //         .addListener(['testMainListener', {
-    //             onShowingApp: (_, params) => params.sm.stop(),
-    //         }])
-    //         .addListener(['stop=>test', {
-    //             onStop: (_, params) => {
-    //                 expect(params.sm.getEvents()).to.deep.eq(SerializedSmEvents.events(initializationFork));
-    //                 done();
-    //             }
-    //         }])
-    //         .sync <AuthenticationSmListener, AuthenticationSmJoiner>(
-    //             'sync-authentication',
-    //             new AuthenticationPrototype(Authenticators.alwaysAuthenticatesSuccessfullyWith({})).newBuilder(),
-    //             {
-    //                 onAuthenticated: {
-    //                     ifShowingLogin: (mainActions) => mainActions.doShowApp()
-    //                 }
-    //             }, (authenticationSm) => authenticationSm.addListener(['notAuthenticated=>authenticated', {
-    //                 onNotAuthenticated: (actions) => actions.doAuthenticating({})
-    //             }], ListenerType.ONCE))
-    //         .start('main-test2')
-    // })
+    it("should join with an authentication sm", () => {
+        // let sm = new MainSm((actions) => actions.doInitialise(TRANSLATIONS)).define()
+        //     .sync <AuthenticationSmListener, MainSmListener>(
+        //         'sync-authentication',
+        //         new AuthenticationPrototype(Authenticators.alwaysAuthenticatesSuccessfullyWith({})).newBuilder()
+        //             .addListener(['notAuthenticated=>authenticated', {
+        //                 onNotAuthenticated: (actions) => actions.doAuthenticating({})
+        //             }])
+        //         ,
+        //         {
+        //             onAuthenticated: {
+        //                 onShowingLogin: (mainActions) => mainActions.doShowApp()
+        //             }
+        //         }
+        //     )
+        //     .start('main-sync');
+        //
+        // expect(sm.getEvents()).to.deep.eq([
+        //     ...initSequence,
+        //     forkTransition (
+        //         'doInitializing',
+        //         undefined,
+        //         'initializing',
+        //         {
+        //             transitionName: 'doInitialise',
+        //             payload: TRANSLATIONS
+        //         }
+        //     ),
+        //     {stateName: "showingLogin"},
+        // ]);
+    })
 
 });

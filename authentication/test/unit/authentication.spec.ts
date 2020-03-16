@@ -79,7 +79,7 @@ describe('authentication test', () => {
     });
 
 
-    it("should call many times into a listener", (done) => {
+    it("should call many times into a listener", () => {
         let calls: string [] = [];
         new AuthenticationPrototype(Authenticators.alwaysAuthenticatesSuccessfullyWith(APP_CREDENTIALS)).newBuilder()
             .addListener(['testMainListener', {
@@ -89,22 +89,17 @@ describe('authentication test', () => {
                 },
                 onAuthenticated: (_, params) => {
                     calls.push('authenticated');
-                    params.sm.stop();
                 }
             }])
             .addListener(['testMainListener - dupe', {
                 onNotAuthenticated: () => calls.push('second not authenticated'),
             }])
-            .addListener(['stop=>test', {
-                onStop: () => {
-                    expect(calls).to.deep.eq([
-                        'first not authenticated',
-                        'second not authenticated',
-                        'authenticated',
-                    ]);
-                    done();
-                }
-            }])
             .start('auth-test5');
+
+        expect(calls).to.deep.eq([
+            'first not authenticated',
+            'second not authenticated',
+            'authenticated',
+        ]);
     });
 });

@@ -16,7 +16,8 @@ import {
 import {AppCredentials, UserNameAndPassword} from "../../domain/domain";
 import {IBiConsumer} from "../../../lib/conan-utils/typesHelper";
 import {BasicSmListener} from "../../../lib/conan-sm/stateMachineListeners";
-import {StateMachine} from "../../../lib/conan-sm/stateMachine";
+import {StateMachineTreeDefBuilder} from "../../../lib/conan-sm/stateMachineTreeDefBuilder";
+import {SmPrototype} from "../../../lib/conan-sm-sugar/smPrototype";
 
 
 export class AuthenticatedActionsLogic implements AuthenticatedActions {
@@ -70,8 +71,8 @@ export class AuthenticationPrototype {
     ) {
     }
 
-    newBuilder(): StateMachine<AuthenticationSmListener> {
-        return new StateMachine()
+    newBuilder(): SmPrototype<AuthenticationSmListener> {
+        return new SmPrototype(new StateMachineTreeDefBuilder()
             .withInitialState('notAuthenticated')
             .withState<
                 NotAuthenticatedActions,
@@ -96,5 +97,6 @@ export class AuthenticationPrototype {
                 "authenticated",
                 AuthenticatedActionsLogic,
             )
+        )
     }
 }
