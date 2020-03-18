@@ -65,13 +65,13 @@ export type Authenticator = IBiConsumer<AuthenticatingActions, UserNameAndPasswo
 export interface AuthenticationSmListener extends NotAuthenticatedListener, AuthenticatingListener, AuthenticatedListener, BasicSmListener {
 }
 
-export class AuthenticationPrototype {
+export class AuthenticationSm {
     constructor(
         private readonly authenticator: Authenticator,
     ) {
     }
 
-    newBuilder(): SmPrototype<AuthenticationSmListener> {
+    create(): SmPrototype<AuthenticationSmListener> {
         return new SmPrototype(new StateMachineTreeDefBuilder()
             .withInitialState('notAuthenticated')
             .withState<

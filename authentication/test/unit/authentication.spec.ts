@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {AppCredentials, UserNameAndPassword} from "../../src/domain/domain";
-import {AuthenticationPrototype} from "../../src/sm/authentication/authentication.sm";
+import {AuthenticationSm} from "../../src/sm/authentication/authentication.sm";
 import {Authenticators} from "../utils/authenticators";
 import {SerializedSmEvent, TransitionSmEvent} from "../../lib/conan-sm/stateMachineEvents";
 import {ListenerType} from "../../../../conan-ui-core/src/lib/conan-sm/stateMachineListeners";
@@ -42,7 +42,7 @@ describe('authentication test', () => {
 
     it("should listen to stages and stop gracefully", () => {
 
-        let sm = new AuthenticationPrototype(Authenticators.alwaysAuthenticatesSuccessfullyWith(APP_CREDENTIALS)).newBuilder()
+        let sm = new AuthenticationSm(Authenticators.alwaysAuthenticatesSuccessfullyWith(APP_CREDENTIALS)).create()
             .addListener(['::notAuth=>doAuth', {
                 onNotAuthenticated: (actions) => actions.doAuthenticating(USERNAME_AND_PASSWORD),
             }])
@@ -58,7 +58,7 @@ describe('authentication test', () => {
     });
 
     it("should listen to stages and actions and stop gracefully", () => {
-        let sm = new AuthenticationPrototype(Authenticators.alwaysAuthenticatesSuccessfullyWith(APP_CREDENTIALS)).newBuilder()
+        let sm = new AuthenticationSm(Authenticators.alwaysAuthenticatesSuccessfullyWith(APP_CREDENTIALS)).create()
             .addListener(['::notAuthenticated=>authenticating', {
                 onNotAuthenticated: (actions, params) => actions.doAuthenticating(USERNAME_AND_PASSWORD),
             }], ListenerType.ONCE)
@@ -81,7 +81,7 @@ describe('authentication test', () => {
 
     it("should call many times into a listener", () => {
         let calls: string [] = [];
-        new AuthenticationPrototype(Authenticators.alwaysAuthenticatesSuccessfullyWith(APP_CREDENTIALS)).newBuilder()
+        new AuthenticationSm(Authenticators.alwaysAuthenticatesSuccessfullyWith(APP_CREDENTIALS)).create()
             .addListener(['testMainListener', {
                 onNotAuthenticated: (actions) => {
                     actions.doAuthenticating(USERNAME_AND_PASSWORD);
