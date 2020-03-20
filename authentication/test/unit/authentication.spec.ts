@@ -6,9 +6,9 @@ import {SerializedSmEvent, TransitionSmEvent} from "../../lib/conan-sm/stateMach
 import {ListenerType} from "../../../../conan-ui-core/src/lib/conan-sm/stateMachineListeners";
 
 export const initSequence: SerializedSmEvent[] = [
-    {stateName: "init"},
+    {name: "init"},
     {transitionName: "doStart"},
-    {stateName: "start"},
+    {name: "start"},
 ];
 
 export function forkTransition(
@@ -23,9 +23,9 @@ export function forkTransition(
         fork: [
             ...initSequence,
             {transitionName, ...transitionPayload? {payload: transitionPayload} : undefined},
-            {stateName: deferStageName, ...transitionPayload? {data: transitionPayload} : undefined},
+            {name: deferStageName, ...transitionPayload? {data: transitionPayload} : undefined},
             transition,
-            {stateName: 'stop'},
+            {name: 'stop'},
         ]
     };
 }

@@ -23,13 +23,13 @@ import {SmPrototype} from "../../../lib/conan-sm-sugar/smPrototype";
 export class AuthenticatedActionsLogic implements AuthenticatedActions {
     doLogout(): NotAuthenticatedStage {
         return {
-            stateName: "notAuthenticated",
+            name: "notAuthenticated",
         };
     }
 
     doTimeout(): NotAuthenticatedStage {
         return {
-            stateName: "notAuthenticated",
+            name: "notAuthenticated",
         };
     }
 
@@ -39,13 +39,13 @@ export class AuthenticatingActionsLogic implements AuthenticatingActions {
     doSuccess(appCredentials: AppCredentials): AuthenticatedStage {
         return {
             data: appCredentials,
-            stateName: 'authenticated'
+            name: 'authenticated'
         };
     }
 
     doUnauthorised(): NotAuthenticatedStage {
         return {
-            stateName: 'notAuthenticated'
+            name: 'notAuthenticated'
         };
     }
 
@@ -54,7 +54,7 @@ export class AuthenticatingActionsLogic implements AuthenticatingActions {
 export class NotAuthenticatedActionsLogic implements NotAuthenticatedActions {
     doAuthenticating(userNameAndPassword: UserNameAndPassword): AuthenticatingStage {
         return {
-            stateName: 'authenticating',
+            name: 'authenticating',
             data: userNameAndPassword
         };
     }
