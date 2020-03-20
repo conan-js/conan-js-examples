@@ -1,10 +1,5 @@
 import {StateMachineTreeDefBuilder} from "../../../lib/conan-sm/stateMachineTreeDefBuilder";
-import {
-    InitializingActions,
-    InitializingListener,
-    InitializingStage,
-    InitializingStageName
-} from "./stages/initializing.stage";
+import {InitializingActions, InitializingListener} from "./stages/initializing.stage";
 import {Translations} from "../../domain/translations";
 import {ShowingLoginActions, ShowingLoginListener, ShowingLoginStage} from "./stages/showingLoginStage";
 import {IConsumer} from "../../../lib/conan-utils/typesHelper";
@@ -41,18 +36,12 @@ export class MainSm {
     }
 
     define(): SmPrototype<MainSmListener> {
-        return new SmPrototype(new StateMachineTreeDefBuilder<MainSmListener>([`onStart=>initializing`, {
-            onStart: (_: any, params: any) => params.sm.requestTransition({
-                transition: {
-                    stateName: 'initializing'
-                },
-                transitionName: 'doInitializing'
-            } as any)
-        }])
-            .withDeferredStage<
-                InitializingStageName,
-                InitializingActions,
-                InitializingStage>('initializing', InitializingActionsLogic, this.initializer, ['showingLogin'])
+        return new SmPrototype(new StateMachineTreeDefBuilder<MainSmListener>()
+            .withDeferredStart<InitializingActions, void>(
+                'showingLogin',
+                InitializingActionsLogic,
+                this.initializer
+            )
             .withState<
                 ShowingLoginActions,
                 ShowingLoginStage

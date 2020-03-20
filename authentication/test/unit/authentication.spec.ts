@@ -60,10 +60,10 @@ describe('authentication test', () => {
     it("should listen to stages and actions and stop gracefully", () => {
         let sm = new AuthenticationSm(Authenticators.alwaysAuthenticatesSuccessfullyWith(APP_CREDENTIALS)).create()
             .addListener(['::notAuthenticated=>authenticating', {
-                onNotAuthenticated: (actions, params) => actions.doAuthenticating(USERNAME_AND_PASSWORD),
+                onNotAuthenticated: (actions) => actions.doAuthenticating(USERNAME_AND_PASSWORD),
             }], ListenerType.ONCE)
             .addListener(['::authenticated->doTimeout', {
-                onAuthenticated: (actions, params) => actions.doTimeout()
+                onAuthenticated: (actions) => actions.doTimeout()
             }], ListenerType.ONCE)
             .start('auth-timeout');
 
@@ -87,7 +87,7 @@ describe('authentication test', () => {
                     actions.doAuthenticating(USERNAME_AND_PASSWORD);
                     calls.push('first not authenticated');
                 },
-                onAuthenticated: (_, params) => {
+                onAuthenticated: () => {
                     calls.push('authenticated');
                 }
             }])

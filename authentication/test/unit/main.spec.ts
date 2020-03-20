@@ -15,11 +15,11 @@ describe('main test', () => {
             .start('main-test1');
 
         expect(sm.getEvents()).to.deep.eq([
-            ...initSequence,
+            {stateName: "init"},
             forkTransition (
-                'doInitializing',
+                'doStart',
                 undefined,
-                'initializing',
+                'start',
                 {
                     transitionName: 'doInitialise',
                     payload: TRANSLATIONS
@@ -40,11 +40,11 @@ describe('main test', () => {
             .start('main-sync');
 
         expect(sm.getEvents()).to.deep.eq([
-            ...initSequence,
+            {stateName: "init"},
             forkTransition (
-                'doInitializing',
+                'doStart',
                 undefined,
-                'initializing',
+                'start',
                 {
                     transitionName: 'doInitialise',
                     payload: TRANSLATIONS
