@@ -16,7 +16,7 @@ import {
 import {AppCredentials, UserNameAndPassword} from "../../domain/domain";
 import {IBiConsumer} from "../../../lib/conan-utils/typesHelper";
 import {BasicSmListener} from "../../../lib/conan-sm/stateMachineListeners";
-import {StateMachineTreeDefBuilder} from "../../../lib/conan-sm/stateMachineTreeDefBuilder";
+import {StateMachineDefBuilder} from "../../../lib/conan-sm/stateMachineDefBuilder";
 import {SmPrototype} from "../../../lib/conan-sm-sugar/smPrototype";
 
 
@@ -72,7 +72,7 @@ export class AuthenticationSm {
     }
 
     create(): SmPrototype<AuthenticationSmListener> {
-        return new SmPrototype(new StateMachineTreeDefBuilder()
+        return new SmPrototype(new StateMachineDefBuilder<AuthenticationSmListener>()
             .withInitialState('notAuthenticated')
             .withState<
                 NotAuthenticatedActions,
