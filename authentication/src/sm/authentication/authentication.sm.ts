@@ -81,7 +81,7 @@ export class AuthenticationSm {
                 'notAuthenticated',
                 NotAuthenticatedActionsLogic,
             )
-            .withDeferredStage<
+            .withDeferredState<
                 'authenticating',
                 AuthenticatingActions,
                 UserNameAndPassword
