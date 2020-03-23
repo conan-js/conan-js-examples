@@ -1,5 +1,5 @@
 import {ToDo, ToDoStatus, VisibilityFilters} from "../domain/domain";
-import {Store, StoreFactory} from "conan-ui-core/src/lib/conan-store/store";
+import {Store, StoreFactory} from "conan-ui-core";
 
 export interface TodoListData {
     todos: ToDo[];
@@ -13,7 +13,8 @@ export interface TodoListActions {
 
     filter(filter: VisibilityFilters): TodoListData;
 }
-
+let a = StoreFactory;
+debugger;
 export let TodoListStoreFactory = (initialData?: TodoListData): Store<TodoListActions> => StoreFactory.create(
     initialData,
     (currentState) => ({

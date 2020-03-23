@@ -1,4 +1,4 @@
-import {ICallback} from "conan-ui-core/src/lib/conan-utils/typesHelper";
+import {ICallback} from "conan-ui-core";
 import * as React from "react";
 
 interface TodoProps {

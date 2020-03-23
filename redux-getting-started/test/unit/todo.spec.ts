@@ -1,6 +1,5 @@
 import {expect} from "chai";
-import {ListenerType} from "conan-ui-core/src/lib/conan-sm/stateMachineListeners";
-import {SmController} from "conan-ui-core/src/lib/conan-sm/_domain";
+import {ListenerType, SmController} from "conan-ui-core";
 import {ToDo, ToDoStatus} from "../../src/domain/domain";
 import {TodoListData, TodoListStoreFactory} from "../../src/stores/todoList.store";
 
