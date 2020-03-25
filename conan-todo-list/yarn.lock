@@ -2929,10 +2929,8 @@ compression@^1.7.4:
     safe-buffer "5.1.2"
     vary "~1.1.2"
 
-conan-ui-core@^1.0.1:
+"conan-ui-core@file:../../conan-ui-core":
   version "1.0.1"
-  resolved "https://registry.yarnpkg.com/conan-ui-core/-/conan-ui-core-1.0.1.tgz#60ef46957f29dfc50d712311f243f22b6de232f0"
-  integrity sha512-gEJARqCNqP3wVehVT4tx/DFj+toaTDZT5WfVfLZZTR4EO6OHlQ4UMoEHJeSMTPtHwWaIzYC0MY9Iv1PbCXy9Fw==
   dependencies:
     react "^16.9.0"
     react-dom "^16.9.0"
