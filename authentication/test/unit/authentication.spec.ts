@@ -2,13 +2,13 @@ import {expect} from "chai";
 import {AppCredentials, UserNameAndPassword} from "../../src/domain/domain";
 import {AuthenticationPrototype} from "../../src/sm/authentication/authentication.sm";
 import {Authenticators} from "../utils/authenticators";
-import {SerializedSmEvent, TransitionSmEvent} from "../../lib/conan-sm/stateMachineEvents";
-import {ListenerType} from "../../../../conan-ui-core/src/lib/conan-sm/stateMachineListeners";
+import {SerializedSmEvent, TransitionSmEvent} from "conan-ui-core";
+import {ListenerType} from "conan-ui-core";
 
 export const initSequence: SerializedSmEvent[] = [
-    {stateName: "init"},
+    {name: "init"},
     {transitionName: "doStart"},
-    {stateName: "start"},
+    {name: "start"},
 ];
 
 export function forkTransition(
@@ -23,9 +23,9 @@ export function forkTransition(
         fork: [
             ...initSequence,
             {transitionName, ...transitionPayload? {payload: transitionPayload} : undefined},
-            {stateName: deferStageName, ...transitionPayload? {data: transitionPayload} : undefined},
+            {name: deferStageName, ...transitionPayload? {data: transitionPayload} : undefined},
             transition,
-            {stateName: 'stop'},
+            {name: 'stop'},
         ]
     };
 }
@@ -51,30 +51,30 @@ describe('authentication test', () => {
         expect(sm.getEvents()).to.deep.eq([
             ...initSequence,
             {transitionName: "doInitialise"},
-            {stateName: "notAuthenticated"},
+            {name: "notAuthenticated"},
             AUTHENTICATED_SUCCESS_FORK_TRANSITION,
-            {stateName: "authenticated", data: APP_CREDENTIALS},
+            {name: "authenticated", data: APP_CREDENTIALS},
         ]);
     });
 
     it("should listen to stages and actions and stop gracefully", () => {
         let sm = new AuthenticationPrototype(Authenticators.alwaysAuthenticatesSuccessfullyWith(APP_CREDENTIALS)).newBuilder()
             .addListener(['::notAuthenticated=>authenticating', {
-                onNotAuthenticated: (actions, params) => actions.doAuthenticating(USERNAME_AND_PASSWORD),
+                onNotAuthenticated: (actions) => actions.doAuthenticating(USERNAME_AND_PASSWORD),
             }], ListenerType.ONCE)
             .addListener(['::authenticated->doTimeout', {
-                onAuthenticated: (actions, params) => actions.doTimeout()
+                onAuthenticated: (actions) => actions.doTimeout()
             }], ListenerType.ONCE)
             .start('auth-timeout');
 
         expect(sm.getEvents()).to.deep.eq([
             ...initSequence,
             {transitionName: "doInitialise"},
-            {stateName: "notAuthenticated"},
+            {name: "notAuthenticated"},
             AUTHENTICATED_SUCCESS_FORK_TRANSITION,
-            {stateName: "authenticated", data: APP_CREDENTIALS},
+            {name: "authenticated", data: APP_CREDENTIALS},
             {transitionName: "doTimeout"},
-            {stateName: "notAuthenticated"},
+            {name: "notAuthenticated"},
         ]);
     });
 
@@ -87,9 +87,8 @@ describe('authentication test', () => {
                     actions.doAuthenticating(USERNAME_AND_PASSWORD);
                     calls.push('first not authenticated');
                 },
-                onAuthenticated: (_, params) => {
+                onAuthenticated: (_) => {
                     calls.push('authenticated');
-                    params.sm.stop();
                 }
             }])
             .addListener(['testMainListener - dupe', {

@@ -1,12 +1,11 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {Endpoint} from "../../lib/endpoint/endpoints";
 import {LanguageCode} from "../domain/types";
 import {Translations} from "../domain/translations";
 
 export interface MainContainerConfig {
     backgroundImg: any;
-    translationsEndpoint: Endpoint<LanguageCode, Translations>,
+    // translationsEndpoint: Endpoint<LanguageCode, Translations>,
     authenticationSm: any
 }
 

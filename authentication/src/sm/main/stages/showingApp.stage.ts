@@ -1,6 +1,6 @@
 import {ShowingLoginStage} from "./showingLoginStage";
-import {Stage} from "../../../../lib/conan-sm/stage";
-import {OnEventCallback, SmListener} from "../../../../lib/conan-sm/stateMachineListeners";
+import {State} from "conan-ui-core";
+import {OnEventCallback, SmListener} from "conan-ui-core";
 
 export type ShowingAppStageName = 'showingApp';
 
@@ -20,5 +20,5 @@ export interface ShowingAppJoiner extends SmListener{
     ifShowingApp?: OnEventCallback<ShowingAppActions>;
 }
 
-export interface ShowingAppStage extends Stage<ShowingAppStageName, ShowingAppActions>{}
+export interface ShowingAppStage extends State<ShowingAppStageName, ShowingAppActions>{}
 
