@@ -1,6 +1,6 @@
 import {ShowingAppStage} from "./showingApp.stage";
-import {Stage} from "../../../../lib/conan-sm/stage";
-import {OnEventCallback, SmListener} from "../../../../lib/conan-sm/stateMachineListeners";
+import {State} from "../../../../lib/conan-sm/core/state";
+import {OnEventCallback, SmListener} from "../../../../lib/conan-sm/core/stateMachineListeners";
 
 export type ShowingLoginStageName = 'showingLogin';
 
@@ -22,5 +22,5 @@ export interface ShowingLoginJoiner extends SmListener{
 
 }
 
-export interface ShowingLoginStage extends Stage<ShowingLoginStageName, ShowingLoginActions>{}
+export interface ShowingLoginStage extends State<ShowingLoginStageName, ShowingLoginActions>{}
 

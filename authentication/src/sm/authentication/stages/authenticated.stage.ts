@@ -1,7 +1,7 @@
 import {NotAuthenticatedStage} from "./notAuthenticated.stage";
 import {AppCredentials} from "../../../domain/domain";
-import {State} from "../../../../lib/conan-sm/state";
-import {OnEventCallback, SmListener} from "../../../../lib/conan-sm/stateMachineListeners";
+import {State} from "../../../../lib/conan-sm/core/state";
+import {OnEventCallback, SmListener} from "../../../../lib/conan-sm/core/stateMachineListeners";
 
 
 export interface AuthenticatedActions {

@@ -3,7 +3,7 @@ import {AppCredentials, UserNameAndPassword} from "../../src/domain/domain";
 import {AuthenticationSm} from "../../src/sm/authentication/authentication.sm";
 import {Authenticators} from "../utils/authenticators";
 import {SerializedSmEvent, TransitionSmEvent} from "../../lib/conan-sm/stateMachineEvents";
-import {ListenerType} from "../../../../conan-ui-core/src/lib/conan-sm/stateMachineListeners";
+import {ListenerType} from "../../../../conan-ui-core/src/lib/conan-sm/core/stateMachineListeners";
 
 export const initSequence: SerializedSmEvent[] = [
     {name: "init"},

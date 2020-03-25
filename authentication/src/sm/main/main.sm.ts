@@ -1,4 +1,4 @@
-import {StateMachineTreeDefBuilder} from "../../../lib/conan-sm/stateMachineTreeDefBuilder";
+import {StateMachineCoreDefBuilder} from "../../../lib/conan-sm/core/stateMachineCoreDefBuilder";
 import {InitializingActions, InitializingListener} from "./stages/initializing.stage";
 import {Translations} from "../../domain/translations";
 import {ShowingLoginActions, ShowingLoginListener, ShowingLoginStage} from "./stages/showingLoginStage";
@@ -15,7 +15,7 @@ export interface MainSmListener extends InitializingListener, ShowingLoginListen
 class InitializingActionsLogic implements InitializingActions {
     doInitialise(translations: Translations): ShowingLoginStage {
         return {
-            stateName: 'showingLogin'
+            name: 'showingLogin'
         };
     }
 }
@@ -23,7 +23,7 @@ class InitializingActionsLogic implements InitializingActions {
 class ShowingLoginActionsLogic implements ShowingLoginActions {
     doShowApp(): ShowingAppStage {
         return {
-            stateName: 'showingApp'
+            name: 'showingApp'
         };
     }
 
@@ -36,7 +36,7 @@ export class MainSm {
     }
 
     define(): SmPrototype<MainSmListener> {
-        return new SmPrototype(new StateMachineTreeDefBuilder<MainSmListener>()
+        return new SmPrototype(new StateMachineCoreDefBuilder<MainSmListener>()
             .withDeferredStart<InitializingActions, void>(
                 'showingLogin',
                 InitializingActionsLogic,
