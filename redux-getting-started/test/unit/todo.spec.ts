@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {ListenerType, SmController} from "conan-ui-core";
 import {ToDo, ToDoStatus} from "../../src/domain/domain";
-import {TodoListData, TodoListStoreFactory} from "../../src/stores/todoList.store";
+import {TodoListData, TodoListStore} from "../../src/stores/todoList.store";
 
 describe('test todo list as in redux GS', () => {
     const INITIAL_STATE: TodoListData = {
@@ -16,7 +16,7 @@ describe('test todo list as in redux GS', () => {
     };
 
     it('should work', () => {
-        let sm: SmController<any, any> = TodoListStoreFactory(INITIAL_STATE)
+        let sm: SmController<any, any> = TodoListStore(INITIAL_STATE)
             .addListener([`::nextTodoList=>addTodo`, {
                 onNextData: (actions) => actions.addTodo(INITIAL_TODO)
             }], ListenerType.ONCE)
@@ -27,6 +27,5 @@ describe('test todo list as in redux GS', () => {
             todos: [INITIAL_TODO],
             appliedFilter: undefined
         });
-
     })
 });

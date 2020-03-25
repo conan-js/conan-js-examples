@@ -13,9 +13,8 @@ export interface TodoListActions {
 
     filter(filter: VisibilityFilters): TodoListData;
 }
-let a = StoreFactory;
-debugger;
-export let TodoListStoreFactory = (initialData?: TodoListData): Store<TodoListActions> => StoreFactory.create(
+
+export let TodoListStore = (initialData?: TodoListData): Store<TodoListActions> => StoreFactory.create(
     initialData,
     (currentState) => ({
         toggleTodo: (todoId: string): TodoListData => ({
