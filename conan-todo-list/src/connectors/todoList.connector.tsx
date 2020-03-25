@@ -1,4 +1,3 @@
-import * as React from "react";
 import {TodoListActions, TodoListData, TodoListStore} from "../stores/todoList.store";
 import {TodoList, TodoListProps} from "../renderers/todoList.renderer";
 import {VisibilityFilters} from "../domain/domain";

@@ -4,7 +4,7 @@ import {ToDo, ToDoStatus, VisibilityFilters} from "../domain/domain";
 import {Todo} from "./todo.renderer";
 import {AddTodo} from "./addTodo.renderer";
 import {TodoListActions, TodoListData} from "../stores/todoList.store";
-import {ICallback, IConsumer} from "conan-ui-core/src/lib/conan-utils/typesHelper";
+import {ICallback, IConsumer} from "conan-ui-core";
 
 export interface TodoListProps {
     todoListData: TodoListData;
@@ -44,16 +44,19 @@ const FilterLink = ({filter, onClick, active, children}: { filter: VisibilityFil
     </Link>
 );
 
-export const Footer = ({onFilter, appliedFilter}: { onFilter: IConsumer<VisibilityFilters> , appliedFilter: VisibilityFilters}) => (
+export const Footer = ({onFilter, appliedFilter}: { onFilter: IConsumer<VisibilityFilters>, appliedFilter: VisibilityFilters }) => (
     <div>
         <span>Show: </span>
-        <FilterLink filter={VisibilityFilters.SHOW_ALL} active={appliedFilter===VisibilityFilters.SHOW_ALL} onClick={onFilter}>
+        <FilterLink filter={VisibilityFilters.SHOW_ALL} active={appliedFilter === VisibilityFilters.SHOW_ALL}
+                    onClick={onFilter}>
             All
         </FilterLink>
-        <FilterLink filter={VisibilityFilters.SHOW_ACTIVE} active={appliedFilter===VisibilityFilters.SHOW_ACTIVE} onClick={onFilter}>
+        <FilterLink filter={VisibilityFilters.SHOW_ACTIVE} active={appliedFilter === VisibilityFilters.SHOW_ACTIVE}
+                    onClick={onFilter}>
             Active
         </FilterLink>
-        <FilterLink filter={VisibilityFilters.SHOW_COMPLETED} active={appliedFilter===VisibilityFilters.SHOW_COMPLETED} onClick={onFilter}>
+        <FilterLink filter={VisibilityFilters.SHOW_COMPLETED}
+                    active={appliedFilter === VisibilityFilters.SHOW_COMPLETED} onClick={onFilter}>
             Completed
         </FilterLink>
     </div>

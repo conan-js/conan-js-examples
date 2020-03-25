@@ -19,7 +19,7 @@ module.exports = {
             //     },
             // },
             {
-                test: /\.(ts|js)x?$/,
+                test: /\.(ts)x?$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'awesome-typescript-loader'

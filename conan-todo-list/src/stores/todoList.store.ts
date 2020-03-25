@@ -1,5 +1,5 @@
 import {ToDo, ToDoStatus, VisibilityFilters} from "../domain/domain";
-import {Store, StoreFactory} from "conan-ui-core/src/lib/conan-sm-sugar/store";
+import {Store, StoreFactory} from "conan-ui-core";
 
 export interface TodoListData {
     todos: ToDo[];
@@ -14,14 +14,12 @@ export interface TodoListActions {
     filter(filter: VisibilityFilters): TodoListData;
 }
 
-
-
-export let TodoListStore = (initialData?: TodoListData): Store<TodoListActions> => StoreFactory.create(
+export let TodoListStore = (initialData: TodoListData): Store<TodoListActions> => StoreFactory.create(
     initialData,
     (currentState) => ({
         toggleTodo: (todoId: string): TodoListData => ({
             todos: currentState.todos.map(todo =>
-                todo.id != todoId ? todo : {
+                todo.id !== todoId ? todo : {
                     ...todo,
                     status: (todo.status === ToDoStatus.PENDING ? ToDoStatus.COMPLETED : ToDoStatus.PENDING)
                 },
@@ -34,8 +32,8 @@ export let TodoListStore = (initialData?: TodoListData): Store<TodoListActions> 
         }),
         filter: (filter: VisibilityFilters): TodoListData => (
             {
-            todos: currentState.todos,
-            appliedFilter: filter
-        })
+                todos: currentState.todos,
+                appliedFilter: filter
+            })
     })
 );
