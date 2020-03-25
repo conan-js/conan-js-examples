@@ -3,10 +3,14 @@
     "outDir": "./dist/",
     "noImplicitAny": true,
     "module": "commonjs",
+    "moduleResolution": "node",
     "target": "es2015",
     "jsx": "react",
     "declaration": true,
     "sourceMap": true,
     "experimentalDecorators": true
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

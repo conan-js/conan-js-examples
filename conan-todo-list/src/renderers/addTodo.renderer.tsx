@@ -5,6 +5,7 @@ import * as React from "react";
 interface AddTodoProps {
     onClick: IConsumer<ToDo>;
 }
+
 let nextTodoId = 0;
 
 export const AddTodo = (props: AddTodoProps) => {
@@ -30,7 +31,9 @@ export const AddTodo = (props: AddTodoProps) => {
             >
                 <input
                     ref={node => {
-                        input = node
+                        if (node) {
+                            input = node
+                        }
                     }}
                 />
                 <button type="submit">Add Todo</button>
