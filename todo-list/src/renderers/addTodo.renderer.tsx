@@ -1,6 +1,6 @@
-import {IConsumer} from "conan-ui-core";
 import {ToDo, ToDoStatus} from "../domain/domain";
 import * as React from "react";
+import {IConsumer} from "conan-ui-core";
 
 interface AddTodoProps {
     onClick: IConsumer<ToDo>;

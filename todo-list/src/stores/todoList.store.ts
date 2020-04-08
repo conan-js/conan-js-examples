@@ -1,5 +1,5 @@
 import {ToDo, ToDoStatus, VisibilityFilters} from "../domain/domain";
-import {Store, StoreFactory} from "conan-ui-core";
+import {Store, StoreBuilderFactory} from "conan-ui-core";
 
 export interface TodoListData {
     todos: ToDo[];
@@ -14,26 +14,26 @@ export interface TodoListActions {
     filter(filter: VisibilityFilters): TodoListData;
 }
 
-export let TodoListStore = (initialData: TodoListData): Store<TodoListActions> => StoreFactory.create(
-    initialData,
-    (currentState) => ({
-        toggleTodo: (todoId: string): TodoListData => ({
-            todos: currentState.todos.map(todo =>
-                todo.id !== todoId ? todo : {
-                    ...todo,
-                    status: (todo.status === ToDoStatus.PENDING ? ToDoStatus.COMPLETED : ToDoStatus.PENDING)
-                },
-            ),
-            appliedFilter: currentState.appliedFilter
+export let TodoListStore$ = (name: string): Store<TodoListActions> =>
+    StoreBuilderFactory.withManyActions<TodoListData, TodoListActions>(
+        currentState => ({
+            toggleTodo: (todoId: string): TodoListData => ({
+                todos: currentState.todos.map(todo =>
+                    todo.id !== todoId ? todo : {
+                        ...todo,
+                        status: (todo.status === ToDoStatus.PENDING ? ToDoStatus.COMPLETED : ToDoStatus.PENDING)
+                    },
+                ),
+                appliedFilter: currentState.appliedFilter
+            }),
+            addTodo: (todo: ToDo): TodoListData => ({
+                todos: [...currentState.todos, todo],
+                appliedFilter: currentState.appliedFilter
+            }),
+            filter: (filter: VisibilityFilters): TodoListData => (
+                {
+                    todos: currentState.todos,
+                    appliedFilter: filter
+                })
         }),
-        addTodo: (todo: ToDo): TodoListData => ({
-            todos: [...currentState.todos, todo],
-            appliedFilter: currentState.appliedFilter
-        }),
-        filter: (filter: VisibilityFilters): TodoListData => (
-            {
-                todos: currentState.todos,
-                appliedFilter: filter
-            })
-    })
-);
+    ).build(name);

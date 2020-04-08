@@ -36,7 +36,7 @@ const Link = ({active, children, onClick}: { active: boolean, children: ReactEle
     >
         {children}
     </button>
-)
+);
 
 const FilterLink = ({filter, onClick, active, children}: { filter: VisibilityFilters, onClick: IConsumer<VisibilityFilters>, active: boolean, children: any }) => (
     <Link active={active} onClick={() => onClick(filter)}>
@@ -60,18 +60,18 @@ export const Footer = ({onFilter, appliedFilter}: { onFilter: IConsumer<Visibili
             Completed
         </FilterLink>
     </div>
-)
+);
 
 function filterToDos(todos: ToDo[], filter: VisibilityFilters): ToDo[] {
     switch (filter) {
         case VisibilityFilters.SHOW_ALL:
-            return todos
+            return todos;
         case VisibilityFilters.SHOW_COMPLETED:
-            return todos.filter(t => t.status === ToDoStatus.COMPLETED)
+            return todos.filter(t => t.status === ToDoStatus.COMPLETED);
         case VisibilityFilters.SHOW_ACTIVE:
-            return todos.filter(t => t.status === ToDoStatus.PENDING)
+            return todos.filter(t => t.status === ToDoStatus.PENDING);
         default:
-            throw new Error('Unknown filter: ' + filter)
+            throw new Error('Unknown filter: ' + filter);
     }
 }
 
