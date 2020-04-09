@@ -4,7 +4,7 @@ import {ToDo, ToDoStatus, VisibilityFilters} from "../domain/domain";
 import {Todo} from "./todo.renderer";
 import {AddTodo} from "./addTodo.renderer";
 import {TodoListActions, TodoListData} from "../stores/todoList.store";
-import {ICallback, IConsumer} from "conan-ui-core";
+import {ICallback, IConsumer} from "conan-js-core";
 
 export interface TodoListProps {
     todoListData: TodoListData;

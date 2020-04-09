@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ICallback} from "conan-ui-core";
+import {ICallback} from "conan-js-core";
 
 interface TodoProps {
     onClick: ICallback;

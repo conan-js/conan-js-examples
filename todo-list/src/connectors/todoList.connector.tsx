@@ -1,7 +1,7 @@
 import * as React from "react";
 import {TodoListActions, TodoListData, TodoListStore$} from "../stores/todoList.store";
 import {TodoList, TodoListProps} from "../renderers/todoList.renderer";
-import {ReactComponentConnector} from "conan-ui-core";
+import {ReactComponentConnector} from "conan-js-core";
 import {VisibilityFilters} from "../domain/domain";
 
 let store = TodoListStore$('todo-list');
