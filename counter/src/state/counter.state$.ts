@@ -1,6 +1,6 @@
-import {ConanState} from "../../../../core/conan-react/conanState";
-import {Reducers, ReducersFn} from "../../../../core/conan-thread/domain/reducers";
-import {Conan} from "../../../../core/conan-react/conan";
+import {ConanState} from "conan-js-core";
+import {Reducers, ReducersFn} from "conan-js-core";
+import {Conan} from "conan-js-core";
 
 export interface CounterData {
     counter: number;

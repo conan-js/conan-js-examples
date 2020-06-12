@@ -1,8 +1,8 @@
 import * as React from "react";
-import {ICallback} from "../../../../../../core";
+import {ICallback} from "conan-js-core";
 import {CounterActions, CounterData, counterState$} from "../../../state/counter.state$";
-import {contextStateMapConnect} from "../../../../../../core/conan-react/connect/contextStateConnectMap";
-import {stateMapConnect} from "../../../../../../core/conan-react/connect/stateConnect";
+import {contextStateMapConnect} from "conan-js-core";
+import {stateMapConnect} from "conan-js-core";
 
 export const CounterAppCompMap = (): React.ReactElement => stateMapConnect<CounterData, CounterContainerProps, CounterActions>(
     counterState$,

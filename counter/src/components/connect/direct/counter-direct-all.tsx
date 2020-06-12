@@ -1,6 +1,6 @@
 import * as React from "react";
 import {CounterActions, CounterData, counterState$} from "../../../state/counter.state$";
-import {ConnectedState} from "../../../../../../core/conan-react/connect/stateConnect";
+import {ConnectedState} from "conan-js-core";
 
 export const CounterAppDirectAll = (): React.ReactElement => counterState$.connect (CounterContainer)
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ICallback} from "../../../../../../core";
+import {ICallback} from "conan-js-core";
 import {counterState$} from "../../../state/counter.state$";
 
 export const CounterAppDirectMap = (): React.ReactElement => counterState$.connectMap<CounterContainerProps> (

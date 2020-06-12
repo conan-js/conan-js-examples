@@ -1,5 +1,5 @@
 import * as React from "react";
-import {contextStateLive, stateLive} from "../../../../../core/conan-react/live/stateLive";
+import {contextStateLive, stateLive} from "conan-js-core";
 import {CounterActions, CounterData, counterState$} from "../../state/counter.state$";
 
 export const CounterLiveAppCompAll = (): React.ReactElement => stateLive<CounterData, CounterActions>(

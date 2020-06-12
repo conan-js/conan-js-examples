@@ -1,7 +1,7 @@
 import * as React from "react";
 import {FunctionComponent} from "react";
 import {CounterActions, CounterData, counterState$} from "../../../state/counter.state$";
-import {useConantState, useContextConantState} from "../../../../../../core/conan-react/connect/conanHooks";
+import {useConantState, useContextConantState} from "conan-js-core";
 
 export const CounterCompHookContainerAll: FunctionComponent = (): React.ReactElement => {
     const [, actions, ConanContext] = useConantState <CounterData, CounterActions>(counterState$);
