@@ -1,68 +1,92 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {ToDo, ToDoStatus, VisibilityFilters} from "../domain/domain";
+import {ToDo, TodoListData, ToDoStatus, VisibilityFilters} from "../domain/domain";
 import {Todo} from "./todo.renderer";
 import {AddTodo} from "./addTodo.renderer";
-import {TodoListActions, TodoListData} from "../stores/todoList.store";
 import {ICallback, IConsumer} from "conan-js-core";
+import {ConnectedState} from "conan-js-core";
+import {TodoListActions} from "../state/todoListSync.state";
+import {MonitorStatus} from "conan-js-core";
 
-export interface TodoListProps {
-    todoListData: TodoListData;
-    actions: TodoListActions;
+
+export function TodoListRenderer({data, actions, monitorInfo}: ConnectedState <TodoListData, TodoListActions>): ReactElement {
+    return (
+        <div className="Index">
+            {monitorInfo.status !== MonitorStatus.IDLE && monitorInfo.currentAction && monitorInfo.inProgressActions &&
+                <div>
+                    <span>processing: {monitorInfo.currentAction.name} [{monitorInfo.status}]</span>
+                    <span>in progress: [{monitorInfo.inProgressActions.map(it=>it.name).join(', ')}]</span>
+                </div>
+            }
+            <AddTodo onClick={actions.addTodo}/>
+            <ul>
+                {filterToDos(data.todos, data.appliedFilter).map(todo =>
+                    <Todo
+                        key={todo.id}
+                        onClick={() => actions.toggleTodo(todo)}
+                        text={todo.description}
+                        completed={todo.status === ToDoStatus.COMPLETED}
+                    />
+                )}
+            </ul>
+            <FooterRenderer appliedFilter={data.appliedFilter} filterUpdater={actions.filter}/>
+        </div>
+    );
 }
 
-export const TodoList = (props: TodoListProps): ReactElement => <div className="Index">
-    <AddTodo onClick={props.actions.addTodo}/>
-    <ul>
-        {filterToDos(props.todoListData.todos, props.todoListData.appliedFilter).map(todo =>
-            <Todo
-                key={todo.id}
-                onClick={() => props.actions.toggleTodo(todo.id)}
-                text={todo.description}
-                completed={todo.status === ToDoStatus.COMPLETED}
-            />
-        )}
-    </ul>
-    <Footer onFilter={props.actions.filter} appliedFilter={props.todoListData.appliedFilter}/>
-</div>;
+export class Link extends React.Component<{ active: boolean, onClick: ICallback }> {
+    render() {
+        let {active, children, onClick} = this.props;
+        return (
+            <button
+                onClick={onClick}
+                disabled={active}
+                style={{
+                    marginLeft: '4px',
+                }}
+            >
+                {children}
+            </button>
+        );
+    }
+}
 
-const Link = ({active, children, onClick}: { active: boolean, children: ReactElement[], onClick: ICallback }) => (
-    <button
-        onClick={onClick}
-        disabled={active}
-        style={{
-            marginLeft: '4px',
-        }}
-    >
-        {children}
-    </button>
-);
+interface FooterProperties {
+    appliedFilter: VisibilityFilters;
+    filterUpdater: IConsumer<VisibilityFilters>
+}
 
-const FilterLink = ({filter, onClick, active, children}: { filter: VisibilityFilters, onClick: IConsumer<VisibilityFilters>, active: boolean, children: any }) => (
-    <Link active={active} onClick={() => onClick(filter)}>
-        {children}
-    </Link>
-);
+export class FooterRenderer extends React.Component<FooterProperties> {
+    render() {
+        let {appliedFilter} = this.props;
+        return (
+            <div>
+                <span>Show: </span>
+                <Link
+                    active={appliedFilter === VisibilityFilters.SHOW_ALL}
+                    onClick={()=>this.props.filterUpdater(VisibilityFilters.SHOW_ALL)}
+                >
+                    ALL
+                </Link>
+                <Link
+                    active={appliedFilter === VisibilityFilters.SHOW_ACTIVE}
+                    onClick={()=>this.props.filterUpdater(VisibilityFilters.SHOW_ACTIVE)}
+                >
+                    Active
+                </Link>
+                <Link
+                    active={appliedFilter === VisibilityFilters.SHOW_COMPLETED}
+                    onClick={()=>this.props.filterUpdater(VisibilityFilters.SHOW_COMPLETED)}
+                >
+                    Completed
+                </Link>
+            </div>
+        );
+    }
+}
 
-export const Footer = ({onFilter, appliedFilter}: { onFilter: IConsumer<VisibilityFilters>, appliedFilter: VisibilityFilters }) => (
-    <div>
-        <span>Show: </span>
-        <FilterLink filter={VisibilityFilters.SHOW_ALL} active={appliedFilter === VisibilityFilters.SHOW_ALL}
-                    onClick={onFilter}>
-            All
-        </FilterLink>
-        <FilterLink filter={VisibilityFilters.SHOW_ACTIVE} active={appliedFilter === VisibilityFilters.SHOW_ACTIVE}
-                    onClick={onFilter}>
-            Active
-        </FilterLink>
-        <FilterLink filter={VisibilityFilters.SHOW_COMPLETED}
-                    active={appliedFilter === VisibilityFilters.SHOW_COMPLETED} onClick={onFilter}>
-            Completed
-        </FilterLink>
-    </div>
-);
 
-function filterToDos(todos: ToDo[], filter: VisibilityFilters): ToDo[] {
+export function filterToDos(todos: ToDo[], filter: VisibilityFilters): ToDo[] {
     switch (filter) {
         case VisibilityFilters.SHOW_ALL:
             return todos;
@@ -74,4 +98,3 @@ function filterToDos(todos: ToDo[], filter: VisibilityFilters): ToDo[] {
             throw new Error('Unknown filter: ' + filter);
     }
 }
-

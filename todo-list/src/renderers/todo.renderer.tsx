@@ -7,13 +7,17 @@ interface TodoProps {
     text: string;
 }
 
-export const Todo = (props: TodoProps) => (
-    <li
-        onClick={props.onClick}
-        style={{
-            textDecoration: props.completed ? 'line-through' : 'none'
-        }}
-    >
-        {props.text}
-    </li>
-);
+export class Todo extends React.Component<TodoProps> {
+    render() {
+        return (
+            <li
+                onClick={this.props.onClick}
+                style={{
+                    textDecoration: this.props.completed ? 'line-through' : 'none'
+                }}
+            >
+                {this.props.text}
+            </li>
+        );
+    }
+}

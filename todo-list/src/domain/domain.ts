@@ -14,3 +14,9 @@ export enum VisibilityFilters {
     SHOW_COMPLETED = 'SHOW_COMPLETED',
     SHOW_ACTIVE = 'SHOW_ACTIVE'
 }
+
+export interface TodoListData {
+    todos: ToDo[];
+    appliedFilter: VisibilityFilters;
+}
+

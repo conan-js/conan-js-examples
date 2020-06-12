@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import {TodoListConnector} from "./connectors/todoList.connector";
+import {TodoListSyncApp} from "./app";
 
 ReactDOM.render(
     <React.StrictMode>
-        <TodoListConnector/>
+        <TodoListSyncApp/>
     </React.StrictMode>,
     document.getElementById('root')
 );
