@@ -1,5 +1,5 @@
 {
-  "name": "conan-counter",
+  "name": "conanjs-connecting-state",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
