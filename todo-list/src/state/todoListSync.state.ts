@@ -12,7 +12,7 @@ export interface TodoListActions {
 
     toggleTodo(todo: ToDo): Asap<TodoListData>;
 
-    filter (filter: VisibilityFilters): Asap<TodoListData>;
+    filter(filter: VisibilityFilters): Asap<TodoListData>;
 }
 
 

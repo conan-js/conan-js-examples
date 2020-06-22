@@ -1,3 +1,5 @@
+import {TodoListState} from "../state/todoListSync.state";
+
 export interface ToDo {
     id: string;
     description: string;
@@ -20,3 +22,6 @@ export interface TodoListData {
     appliedFilter: VisibilityFilters;
 }
 
+export interface App {
+    todoListState: TodoListState;
+}

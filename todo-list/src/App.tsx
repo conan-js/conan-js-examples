@@ -2,7 +2,7 @@ import * as React from "react";
 import {TodoListRenderer} from "./renderers/todoList.renderer";
 import {TodoListData, VisibilityFilters} from "./domain/domain";
 import {diContext} from "./context";
-import {TodoListActions} from "./state/todoListSync.state";
+import {TodoListActions, TodoListState} from "./state/todoListSync.state";
 import {StateConnect} from "conan-js-core";
 
 export class TodoListSyncApp extends React.Component {
