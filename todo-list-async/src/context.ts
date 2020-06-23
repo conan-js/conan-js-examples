@@ -1,5 +1,5 @@
 import {DiContextFactory} from "conan-js-core";
-import {TodoListService, TodoListServiceImpl} from "./services/todoListService";
+import {TodoListService, TodoListServiceImpl} from "./todoListService";
 import {TodoListAsyncStateFactory} from "./state/todo-list-async.state$";
 import {App} from "./domain/domain";
 

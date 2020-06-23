@@ -3,7 +3,7 @@ import {ReactElement} from "react";
 import {ConnectedState} from "conan-js-core";
 import {TodoListActions} from "./state/todoListSync.state";
 import {ToDo, ToDoStatus, VisibilityFilters} from "./domain/domain";
-import {OptimisticData, OptimisticTodoListData} from "../domain/domain";
+import {OptimisticData, OptimisticTodoListData} from "./domain";
 import {FooterRenderer} from "./renderers/todoList.renderer";
 import {AddTodo} from "./renderers/addTodo.renderer";
 import {OptimisticTodo} from "./optimisticTodo.renderer";

@@ -3,8 +3,8 @@ import {StateConnect} from "conan-js-core";
 import {TodoListActions} from "./state/todoListSync.state";
 import {VisibilityFilters} from "./domain/domain";
 import {diContext} from "../context";
-import {OptimisticTodoListData} from "./domain/domain";
-import {OptimisticTodoListRenderer} from "./renderers/optimisticTodoListRenderer";
+import {OptimisticTodoListData} from "./domain";
+import {OptimisticTodoListRenderer} from "./optimisticTodoListRenderer";
 
 export class TodoListOptimisticApp extends React.Component {
     render() {

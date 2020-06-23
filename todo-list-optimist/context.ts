@@ -1,10 +1,10 @@
-import {TodoListService, TodoListServiceImpl} from "../todo-list-async/src/services/todoListService";
+import {TodoListService, TodoListServiceImpl} from "../todo-list-async/src/todoListService";
 import {DiContextFactory} from "../../core/conan-di/core/diContext";
 import {TodoListAsyncStateFactory} from "../todo-list-async/src/state/todo-list-async.state$";
 import {ConanState} from "../../core/conan-react/conanState";
-import {OptimisticTodoListData} from "./src/domain/domain";
+import {OptimisticTodoListData} from "./src/domain";
 import {TodoListActions} from "../common-todo/state/todoListSync.state";
-import {OptimisticTodoListData$} from "./src/state/optimisticTodoDataState";
+import {OptimisticTodoListData$} from "./src/optimisticTodoDataState";
 import {App} from "../common-todo/domain/domain";
 
 export interface InternalDependencies {

@@ -1,7 +1,7 @@
 import {Conan} from "conan-js-core";
 import {TodoListData, VisibilityFilters} from "./domain/domain";
 import {TodoListReducers, TodoListReducersFn} from "./state/todoList.reducers";
-import {TodoListService} from "../services/todoListService";
+import {TodoListService} from "./todoListService";
 import {TodoListState} from "./state/todoListSync.state";
 
 

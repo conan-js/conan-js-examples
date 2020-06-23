@@ -1,5 +1,5 @@
 import {ConanState} from "conan-js-core";
-import {OptimisticStatus, OptimisticTodoListData} from "../domain/domain";
+import {OptimisticStatus, OptimisticTodoListData} from "./domain";
 import {TodoListActions, TodoListState} from "./state/todoListSync.state";
 import {ToDo, VisibilityFilters} from "./domain/domain";
 import {MonitorStatus} from "conan-js-core";

@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ICallback} from "conan-js-core";
-import {OptimisticStatus} from "../domain/domain";
+import {OptimisticStatus} from "./domain";
 
 interface TodoProps {
     toggleCb: ICallback;
