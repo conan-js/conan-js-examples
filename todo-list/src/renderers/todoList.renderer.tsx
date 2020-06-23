@@ -9,12 +9,12 @@ import {TodoListActions} from "../state/todoListSync.state";
 import {MonitorStatus} from "conan-js-core";
 
 
-export function TodoListRenderer({data, actions, monitorInfo}: ConnectedState<TodoListData, TodoListActions>): ReactElement {
+export function TodoListRenderer({data, actions, monitorInfo}: ConnectedState <TodoListData, TodoListActions>): ReactElement {
     return (
         <div className="Index">
             {monitorInfo.status !== MonitorStatus.IDLE && monitorInfo.currentAction && monitorInfo.inProgressActions &&
-            <div>
-                <span>processing: {monitorInfo.currentAction.name} [{monitorInfo.status}]</span>
+                <div>
+                    <span>processing: {monitorInfo.currentAction.name} [{monitorInfo.status}]</span>
                     <span>in progress: [{monitorInfo.inProgressActions.map(it=>it.name).join(', ')}]</span>
                 </div>
             }
