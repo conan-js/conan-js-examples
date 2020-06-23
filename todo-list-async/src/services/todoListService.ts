@@ -1,5 +1,5 @@
 import {Asap, Asaps} from "conan-js-core";
-import {ToDo, ToDoStatus} from "./domain/domain";
+import {ToDo, ToDoStatus} from "../domain/domain";
 
 export interface TodoListService {
     fetch(): Asap<ToDo[]>;
@@ -9,7 +9,7 @@ export interface TodoListService {
     toggleTodo(todo: ToDo): Asap<ToDo>;
 }
 
-export class TodoListServiceImpl implements TodoListService{
+export class TodoListServiceImpl implements TodoListService {
     public fetch(): Asap<ToDo[]> {
         return Asaps.delayed([{description: 'test', id: '-1', status: ToDoStatus.PENDING}], 500, 'fetch');
     }
