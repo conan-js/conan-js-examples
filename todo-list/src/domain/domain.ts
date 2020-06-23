@@ -1,3 +1,5 @@
+import {TodoListState} from "../state/todoListSync.state";
+
 export interface ToDo {
     id: string;
     description: string;
@@ -18,5 +20,9 @@ export enum VisibilityFilters {
 export interface TodoListData {
     todos: ToDo[];
     appliedFilter: VisibilityFilters;
+}
+
+export interface App {
+    todoListState: TodoListState;
 }
 
