@@ -25,3 +25,4 @@ export interface TodoListData {
 export interface App {
     todoListState: TodoListState;
 }
+
