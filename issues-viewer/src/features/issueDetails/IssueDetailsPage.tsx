@@ -7,7 +7,7 @@ import {IssueLabels} from "../../components/IssueLabels";
 import {IFunction} from "conan-js-core";
 import {IssuesCommentsData, issuesCommentsState$} from "../../state/issuesCommentState$";
 import {IssueComments} from "./IssueComments";
-import {useConantState} from "conan-js-core";
+import {useConanState} from "conan-js-core";
 import {IssuesCommentsActions} from "../../state/issueCommentsActionsFn";
 
 export interface IDProps {
@@ -29,7 +29,7 @@ export const IssueDetailsPage = ({
                                      fetchComments
                                  }: IDAllProps) => {
 
-    const [commentsState] = useConantState<IssuesCommentsData, IssuesCommentsActions>(issuesCommentsState$);
+    const [commentsState] = useConanState<IssuesCommentsData, IssuesCommentsActions>(issuesCommentsState$);
 
     useEffect(() => {
         if (issue) {

@@ -4,7 +4,7 @@ import {IssuesListPage} from "./features/issuesList/IssuesListPage";
 import {diContext} from "./context";
 import {IssueDetailsPage} from "./features/issueDetails/IssueDetailsPage";
 import {IssuesData} from "./state/issuesState$";
-import {useConantState} from "conan-js-core";
+import {useConanState} from "conan-js-core";
 import {RepoData, repoState$} from "./state/repoState$";
 
 export type IssuesViewerProps = IssuesData
@@ -17,7 +17,7 @@ export const IssuesViewerApp: React.FC = (): React.ReactElement => {
 
 export const IssuesViewer: React.FC<IssuesViewerProps> = ({displayType, issuesByNumber, issueId, issues}: IssuesData) => {
 
-    const [repoData] = useConantState<RepoData>(repoState$);
+    const [repoData] = useConanState<RepoData>(repoState$);
 
     const setOrgAndRepo = (org: string, repo: string) => {
         diContext.repoState.do.update(current => ({...current, org: org, repo: repo}));
