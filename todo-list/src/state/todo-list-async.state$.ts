@@ -9,10 +9,10 @@ export class TodoListAsyncStateFactory {
     static create(todoListService: TodoListService): TodoListState {
         return Conan.state<TodoListData, TodoListReducers>({
             name: 'todos-async',
-            initialData: todoListService.fetch().map(todos => ({
+            initialData: {
                 appliedFilter: VisibilityFilters.SHOW_ALL,
-                todos
-            })),
+                todos: []
+            },
             reducers: TodoListReducersFn,
             autoBind: todoListService
         })

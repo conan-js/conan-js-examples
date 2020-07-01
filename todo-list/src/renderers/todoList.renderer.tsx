@@ -3,33 +3,55 @@ import {ReactElement} from "react";
 import {ToDo, TodoListData, ToDoStatus, VisibilityFilters} from "../domain/domain";
 import {Todo} from "./todo.renderer";
 import {AddTodo} from "./addTodo.renderer";
-import {ICallback, IConsumer} from "conan-js-core";
 import {ConnectedState} from "conan-js-core";
 import {TodoListActions} from "../state/todoListSync.state";
 import {MonitorStatus} from "conan-js-core";
-
+import {Button, createStyles, Grid, List, Theme, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+import {ICallback, IConsumer} from "conan-js-core";
 
 export function TodoListRenderer({data, actions, monitorInfo}: ConnectedState<TodoListData, TodoListActions>): ReactElement {
+    const useStyles = makeStyles((theme: Theme) =>
+        createStyles({
+            root: {
+                flexGrow: 1,
+            },
+            paper: {
+                padding: theme.spacing(2),
+                textAlign: 'center',
+                color: theme.palette.text.secondary,
+            },
+        }),
+    );
+    const classes = useStyles();
     return (
-        <div className="Index">
-            {monitorInfo.status !== MonitorStatus.IDLE && monitorInfo.currentAction && monitorInfo.inProgressActions &&
-            <div>
-                <span>processing: {monitorInfo.currentAction.name} [{monitorInfo.status}]</span>
-                    <span>in progress: [{monitorInfo.inProgressActions.map(it=>it.name).join(', ')}]</span>
-                </div>
-            }
-            <AddTodo onClick={actions.addTodo}/>
-            <ul>
-                {filterToDos(data.todos, data.appliedFilter).map(todo =>
-                    <Todo
-                        key={todo.id}
-                        onClick={() => actions.toggleTodo(todo)}
-                        text={todo.description}
-                        completed={todo.status === ToDoStatus.COMPLETED}
-                    />
-                )}
-            </ul>
-            <FooterRenderer appliedFilter={data.appliedFilter} filterUpdater={actions.filter}/>
+        <div className={classes.root}>
+            <Grid container spacing={1} >
+                {monitorInfo.status !== MonitorStatus.IDLE && monitorInfo.currentAction && monitorInfo.inProgressActions &&
+                <Grid item xs={12} >
+                    <span>processing: {monitorInfo.currentAction.name} [{monitorInfo.status}]</span>
+                    <span>in progress: [{monitorInfo.inProgressActions.map(it => it.name).join(', ')}]</span>
+                </Grid>
+                }
+                <Grid item xs={12} >
+                    <AddTodo onClick={actions.addTodo}/>
+                </Grid>
+                <Grid item xs={12} >
+                    <List>
+                        {filterToDos(data.todos, data.appliedFilter).map(todo =>
+                            <Todo
+                                key={todo.id}
+                                onClick={() => actions.toggleTodo(todo)}
+                                text={todo.description}
+                                completed={todo.status === ToDoStatus.COMPLETED}
+                            />
+                        )}
+                    </List>
+                </Grid>
+                <Grid item xs={12}>
+                    <FooterRenderer appliedFilter={data.appliedFilter} filterUpdater={actions.filter}/>
+                </Grid>
+            </Grid>
         </div>
     );
 }
@@ -38,15 +60,15 @@ export class Link extends React.Component<{ active: boolean, onClick: ICallback 
     render() {
         let {active, children, onClick} = this.props;
         return (
-            <button
-                onClick={onClick}
-                disabled={active}
-                style={{
-                    marginLeft: '4px',
-                }}
+            <Button variant="outlined" color="secondary"
+                    onClick={onClick}
+                    disabled={active}
+                    style={{
+                        marginLeft: '4px',
+                    }}
             >
                 {children}
-            </button>
+            </Button>
         );
     }
 }
@@ -61,22 +83,22 @@ export class FooterRenderer extends React.Component<FooterProperties> {
         let {appliedFilter} = this.props;
         return (
             <div>
-                <span>Show: </span>
+                <span><Typography>Show : </Typography></span>
                 <Link
                     active={appliedFilter === VisibilityFilters.SHOW_ALL}
-                    onClick={()=>this.props.filterUpdater(VisibilityFilters.SHOW_ALL)}
+                    onClick={() => this.props.filterUpdater(VisibilityFilters.SHOW_ALL)}
                 >
                     ALL
                 </Link>
                 <Link
                     active={appliedFilter === VisibilityFilters.SHOW_ACTIVE}
-                    onClick={()=>this.props.filterUpdater(VisibilityFilters.SHOW_ACTIVE)}
+                    onClick={() => this.props.filterUpdater(VisibilityFilters.SHOW_ACTIVE)}
                 >
                     Active
                 </Link>
                 <Link
                     active={appliedFilter === VisibilityFilters.SHOW_COMPLETED}
-                    onClick={()=>this.props.filterUpdater(VisibilityFilters.SHOW_COMPLETED)}
+                    onClick={() => this.props.filterUpdater(VisibilityFilters.SHOW_COMPLETED)}
                 >
                     Completed
                 </Link>

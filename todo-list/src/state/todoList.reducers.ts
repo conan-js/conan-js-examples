@@ -24,9 +24,8 @@ export const TodoListReducersFn: ReducersFn<TodoListData, TodoListReducers> = ge
         todos: [...getState().todos, todo],
         appliedFilter: getState().appliedFilter
     }),
-    $filter: (filter: VisibilityFilters): TodoListData => (
-        {
-            todos: getState().todos,
-            appliedFilter: filter
-        })
+    $filter: (filter: VisibilityFilters): TodoListData => ({
+        todos: getState().todos,
+        appliedFilter: filter
+    })
 })

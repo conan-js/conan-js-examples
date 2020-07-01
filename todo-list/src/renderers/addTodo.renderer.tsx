@@ -1,6 +1,9 @@
 import {ToDo, ToDoStatus} from "../domain/domain";
 import * as React from "react";
 import {IConsumer} from "conan-js-core";
+import {Box, Button, Grid} from "@material-ui/core";
+import {TextField} from '@material-ui/core';
+
 
 interface AddTodoProps {
     onClick: IConsumer<ToDo>;
@@ -30,14 +33,16 @@ export class AddTodo extends React.Component<AddTodoProps> {
                         input.value = ''
                     }}
                 >
-                    <input
-                        ref={node => {
-                            if (node) {
-                                input = node
-                            }
-                        }}
-                    />
-                    <button type="submit">Add Todo</button>
+                    <Box component="span" m={1} >
+                        <TextField size="small" label="type something..." inputRef={node => {
+                                if (node) {
+                                    input = node
+                                }
+                            }}
+                        />
+                    </Box>
+                    <Box component="span" m={1}><Button variant="outlined" color="secondary" type="submit">Add
+                        Todo</Button></Box>
                 </form>
             </div>
         )
