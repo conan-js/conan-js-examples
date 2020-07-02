@@ -1,6 +1,10 @@
 import * as React from "react";
 import {ICallback} from "conan-js-core";
 import {OptimisticStatus} from "./domain";
+import {Button, CircularProgress, ListItem, ListItemIcon, ListItemText} from "@material-ui/core";
+import CancelIcon from '@material-ui/icons/Cancel';
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
 interface TodoProps {
     toggleCb: ICallback;
@@ -14,16 +18,21 @@ interface TodoProps {
 export class OptimisticTodo extends React.Component<TodoProps> {
     render() {
         return (
-            <li
+            <ListItem
                 key={this.props.id}
                 style={{
                     textDecoration: this.props.completed ? 'line-through' : 'none'
                 }}
             >
-                {this.props.text} <button onClick={this.props.toggleCb}>toggle</button>{this.props.status === OptimisticStatus.IN_PROCESS &&
-                    <>'  ...LOADING!...' <button onClick={this.props.cancelCb}>cancel</button></>
+                <ListItemIcon>
+                    {this.props.completed ? <CheckCircleIcon/> : <CheckCircleOutlineIcon/>}
+                </ListItemIcon>
+                <ListItemText primary={this.props.text} />
+                <Button variant="outlined" color="primary" onClick={this.props.toggleCb}>toggle</Button>
+                {this.props.status === OptimisticStatus.IN_PROCESS &&
+                        <><CircularProgress/><CancelIcon onClick={this.props.cancelCb} /></>
                 }
-            </li>
+            </ListItem>
         );
     }
 }

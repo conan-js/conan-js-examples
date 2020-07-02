@@ -5,7 +5,7 @@ import {ToDo, VisibilityFilters} from "./domain/domain";
 import {MonitorStatus} from "conan-js-core";
 import {Lists} from "conan-js-core";
 
-export function OptimisticTodoListData$ (todoListState: TodoListState): ConanState<OptimisticTodoListData, TodoListActions> {
+export function OptimisticTodoListData$(todoListState: TodoListState): ConanState<OptimisticTodoListData, TodoListActions> {
     return todoListState.asyncMerge<OptimisticTodoListData>(
         {
             appliedFilter: VisibilityFilters.SHOW_ALL,
@@ -26,7 +26,6 @@ export function OptimisticTodoListData$ (todoListState: TodoListState): ConanSta
 
             if (monitorInfo.status !== MonitorStatus.ASYNC_START) {
                 return current;
-
             }
 
             return monitorInfo.currentAction.name === 'addTodo' ? {

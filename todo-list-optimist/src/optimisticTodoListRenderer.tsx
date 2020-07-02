@@ -7,28 +7,33 @@ import {OptimisticData, OptimisticTodoListData} from "./domain";
 import {FooterRenderer} from "./renderers/todoList.renderer";
 import {AddTodo} from "./renderers/addTodo.renderer";
 import {OptimisticTodo} from "./optimisticTodo.renderer";
+import {Grid} from "@material-ui/core";
 
 
 export function OptimisticTodoListRenderer({data, actions}: ConnectedState<OptimisticTodoListData, TodoListActions>): ReactElement {
     return (
         <>
-            <div className="Index">
-                <AddTodo onClick={actions.addTodo}/>
-                <ul>
+            <Grid container spacing={1} direction={"column"}>
+                <Grid item xs={12} sm={3}>
+                    <AddTodo onClick={actions.addTodo}/>
+                </Grid>
+                <Grid item xs={12} sm={3}>
                     {filterToDos(data.todos, data.appliedFilter).map(todo =>
-                    <OptimisticTodo
-                        key={todo.data.id}
-                        id={todo.data.id}
-                        toggleCb={() => actions.toggleTodo(todo.data)}
-                        text={todo.data.description}
-                        completed={todo.data.status === ToDoStatus.COMPLETED}
-                        status={todo.status}
-                        cancelCb={todo.cancelCb}
-                    />
-                )}
-            </ul>
-            <FooterRenderer appliedFilter={data.appliedFilter} filterUpdater={actions.filter}/>
-        </div>
+                        <OptimisticTodo
+                            key={todo.data.id}
+                            id={todo.data.id}
+                            toggleCb={() => actions.toggleTodo(todo.data)}
+                            text={todo.data.description}
+                            completed={todo.data.status === ToDoStatus.COMPLETED}
+                            status={todo.status}
+                            cancelCb={todo.cancelCb}
+                        />
+                    )}
+                </Grid>
+                <Grid item xs={12} sm={3}>
+                    <FooterRenderer appliedFilter={data.appliedFilter} filterUpdater={actions.filter}/>
+                </Grid>
+            </Grid>
         </>
     );
 }

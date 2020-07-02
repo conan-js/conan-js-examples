@@ -22,9 +22,9 @@ export class Todo extends React.Component<TodoProps> {
                 <ListItemIcon>
                     {this.props.completed ? <CheckCircleIcon/> : <CheckCircleOutlineIcon/>}
                 </ListItemIcon>
-                <ListItemText primary={this.props.text} />
+                <ListItemText primary={this.props.text}/>
             </ListItem>
-            <Divider light /></>
+                <Divider light/></>
         );
     }
 }

@@ -6,7 +6,7 @@ import {AddTodo} from "./addTodo.renderer";
 import {ConnectedState} from "conan-js-core";
 import {TodoListActions} from "../state/todoListSync.state";
 import {MonitorStatus} from "conan-js-core";
-import {Button, createStyles, Grid, List, Theme, Typography} from "@material-ui/core";
+import {Button, createStyles, Grid, List, Paper, Snackbar, SnackbarContent, Theme, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {ICallback, IConsumer} from "conan-js-core";
 
@@ -26,17 +26,17 @@ export function TodoListRenderer({data, actions, monitorInfo}: ConnectedState<To
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <Grid container spacing={1} >
+            <Grid container spacing={1} direction={"column"}>
                 {monitorInfo.status !== MonitorStatus.IDLE && monitorInfo.currentAction && monitorInfo.inProgressActions &&
-                <Grid item xs={12} >
-                    <span>processing: {monitorInfo.currentAction.name} [{monitorInfo.status}]</span>
-                    <span>in progress: [{monitorInfo.inProgressActions.map(it => it.name).join(', ')}]</span>
+                <Grid item xs={12} sm={3}>
+                    <SnackbarContent message={`processing: ${monitorInfo.currentAction.name} [${monitorInfo.status}]`} />
+                    <SnackbarContent message={`in progress: [${monitorInfo.inProgressActions.map(it => it.name).join(', ')}]`} />
                 </Grid>
                 }
-                <Grid item xs={12} >
+                <Grid item xs={12} sm={3}>
                     <AddTodo onClick={actions.addTodo}/>
                 </Grid>
-                <Grid item xs={12} >
+                <Grid item xs={12} sm={3}>
                     <List>
                         {filterToDos(data.todos, data.appliedFilter).map(todo =>
                             <Todo
@@ -48,7 +48,7 @@ export function TodoListRenderer({data, actions, monitorInfo}: ConnectedState<To
                         )}
                     </List>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} sm={3}>
                     <FooterRenderer appliedFilter={data.appliedFilter} filterUpdater={actions.filter}/>
                 </Grid>
             </Grid>
