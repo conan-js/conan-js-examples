@@ -14,10 +14,10 @@ export function OptimisticTodoListRenderer({data, actions}: ConnectedState<Optim
     return (
         <>
             <Grid container spacing={1} direction={"column"}>
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={4} lg={3}>
                     <AddTodo onClick={actions.addTodo}/>
                 </Grid>
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={4} lg={3}>
                     {filterToDos(data.todos, data.appliedFilter).map(todo =>
                         <OptimisticTodo
                             key={todo.data.id}
@@ -30,7 +30,7 @@ export function OptimisticTodoListRenderer({data, actions}: ConnectedState<Optim
                         />
                     )}
                 </Grid>
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={4} lg={3}>
                     <FooterRenderer appliedFilter={data.appliedFilter} filterUpdater={actions.filter}/>
                 </Grid>
             </Grid>

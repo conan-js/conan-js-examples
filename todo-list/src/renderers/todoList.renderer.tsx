@@ -28,15 +28,15 @@ export function TodoListRenderer({data, actions, monitorInfo}: ConnectedState<To
         <div className={classes.root}>
             <Grid container spacing={1} direction={"column"}>
                 {monitorInfo.status !== MonitorStatus.IDLE && monitorInfo.currentAction && monitorInfo.inProgressActions &&
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={4} lg={3}>
                     <SnackbarContent message={`processing: ${monitorInfo.currentAction.name} [${monitorInfo.status}]`} />
                     <SnackbarContent message={`in progress: [${monitorInfo.inProgressActions.map(it => it.name).join(', ')}]`} />
                 </Grid>
                 }
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={4} lg={3}>
                     <AddTodo onClick={actions.addTodo}/>
                 </Grid>
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={4} lg={3}>
                     <List>
                         {filterToDos(data.todos, data.appliedFilter).map(todo =>
                             <Todo
@@ -48,7 +48,7 @@ export function TodoListRenderer({data, actions, monitorInfo}: ConnectedState<To
                         )}
                     </List>
                 </Grid>
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={4} lg={3}>
                     <FooterRenderer appliedFilter={data.appliedFilter} filterUpdater={actions.filter}/>
                 </Grid>
             </Grid>
