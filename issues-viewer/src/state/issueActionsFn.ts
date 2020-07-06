@@ -8,9 +8,9 @@ import {Issue} from "../api/gitHub";
 export interface IssuesActions {
     fetch(repo: string, org: string, page: number): Asap<IssuesData>;
 
-    fetchIssue(issueId: number): Asap<IssuesData>;
+    fetchIssue(issueId: number): IssuesData;
 
-    showIssues(): Asap<IssuesData>;
+    showIssues(): IssuesData;
 }
 
 
@@ -23,10 +23,10 @@ export const issueActionsFn: ActionsFn<IssuesData, IssuesReducers, IssuesActions
             [repo, org, page]
         )
     },
-    fetchIssue(issueId: number): Asap<IssuesData> {
-        return thread.chain(reducers=>reducers.$fetchIssue(issueId))
+    fetchIssue(issueId: number): IssuesData {
+        return thread.reducers.$fetchIssue(issueId);
     },
-    showIssues(): Asap<IssuesData> {
-        return thread.chain(reducers=>reducers.$switchDisplay("issues"))
+    showIssues(): IssuesData {
+        return thread.reducers.$switchDisplay("issues");
     }
 })

@@ -1,4 +1,5 @@
 import * as React from "react";
+import {Typography} from "@material-ui/core";
 
 interface OrgProps {
     org: string
@@ -30,17 +31,15 @@ export function IssuesPageHeader({
                                  }: HeaderProps) {
     if (openIssuesCount === -1) {
         return (
-            <h1>
-                Open issues for <OrgRepo org={org} repo={repo}/>
-            </h1>
+          <><Typography variant={"h4"}> issues for </Typography><OrgRepo org={org} repo={repo}/></>
         )
     } else {
         const pluralizedIssue = openIssuesCount === 1 ? 'issue' : 'issues'
         return (
-            <h1>
-                <span className="header__openIssues">{openIssuesCount}</span> open{' '}
-                {pluralizedIssue} for <OrgRepo org={org} repo={repo}/>
-            </h1>
+            <>
+                <Typography variant={"h4"}><span className="header__openIssues">{openIssuesCount}</span> open{' '}
+                {pluralizedIssue} for <OrgRepo org={org} repo={repo}/></Typography>
+            </>
         )
     }
 }

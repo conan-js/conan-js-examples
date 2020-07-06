@@ -6,6 +6,8 @@ import {IssueDetailsPage} from "./features/issueDetails/IssueDetailsPage";
 import {IssuesData} from "./state/issuesState$";
 import {useConanState} from "conan-js-core";
 import {RepoData, repoState$} from "./state/repoState$";
+import {Grid, ThemeProvider} from "@material-ui/core";
+import {theme} from "./styles/styles";
 
 export type IssuesViewerProps = IssuesData
 
@@ -31,23 +33,27 @@ export const IssuesViewer: React.FC<IssuesViewerProps> = ({displayType, issuesBy
 
     if (displayType === 'issues') {
         content = (
-            <React.Fragment>
-                <RepoSearchForm
-                    org={repoData.org}
-                    repo={repoData.repo}
-                    page={repoData.page}
-                    setOrgAndRepo={setOrgAndRepo}
-                    setJumpToPage={setJumpToPage}
-                />
-                <IssuesListPage
-                    org={repoData.org}
-                    repo={repoData.repo}
-                    page={repoData.page}
-                    fetchIssues={diContext.issuesState.do.fetch}
-                    fetchRepoDetails={diContext.repoDetailsState.do.fetchRepoDetails}
-                    issues={issues}
-                />
-            </React.Fragment>
+            <Grid container spacing={1} direction={"column"}>
+                <Grid item xs={12} lg={4}>
+                    <RepoSearchForm
+                        org={repoData.org}
+                        repo={repoData.repo}
+                        page={repoData.page}
+                        setOrgAndRepo={setOrgAndRepo}
+                        setJumpToPage={setJumpToPage}
+                    />
+                </Grid>
+                <Grid item xs={12} lg={4}>
+                    <IssuesListPage
+                        org={repoData.org}
+                        repo={repoData.repo}
+                        page={repoData.page}
+                        fetchIssues={diContext.issuesState.do.fetch}
+                        fetchRepoDetails={diContext.repoDetailsState.do.fetchRepoDetails}
+                        issues={issues}
+                    />
+                </Grid>
+            </Grid>
         )
     } else {
         content = <IssueDetailsPage
@@ -59,7 +65,7 @@ export const IssuesViewer: React.FC<IssuesViewerProps> = ({displayType, issuesBy
         />;
     }
 
-    return <div className="App">{content}</div>
+    return <div className="App"><ThemeProvider theme={theme}>{content}</ThemeProvider></div>
 }
 
 export default IssuesViewer

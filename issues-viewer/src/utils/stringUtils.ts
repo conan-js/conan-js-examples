@@ -1,4 +1,4 @@
-export function insertMentionLinks(markdown: string) {
+export function insertMentionLinks(markdown: string) : string {
     return markdown.replace(
         /\B(@([a-zA-Z0-9](-?[a-zA-Z0-9_])+))/g,
         `**[$1](https://github.com/$2)**`

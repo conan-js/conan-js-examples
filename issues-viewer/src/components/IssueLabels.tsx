@@ -7,7 +7,7 @@ interface IssueLabelsProps {
 }
 
 export const IssueLabels = ({labels, className}: IssueLabelsProps) => (
-    <div>
+    <>
       {labels.map(label => (
           <span
               key={label.id}
@@ -20,5 +20,5 @@ export const IssueLabels = ({labels, className}: IssueLabelsProps) => (
         {label.name}
       </span>
       ))}
-    </div>
+    </>
 )

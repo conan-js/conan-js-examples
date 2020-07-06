@@ -1,5 +1,6 @@
 import * as React from "react";
 import {ChangeEvent, useState} from "react";
+import {Button, Grid, TextField, Typography} from "@material-ui/core";
 
 interface Props {
     org: string
@@ -49,40 +50,46 @@ export const RepoSearchForm = ({
 
     return (
         <form>
-            <div>
-                <label htmlFor="org" style={{marginRight: 5}}>
-                    Org:
-                </label>
-                <input name="org" value={currentOrg} onChange={onOrgChanged}/>
-                <label htmlFor="repo" style={{marginRight: 5, marginLeft: 10}}>
-                    Repo:
-                </label>
-                <input name="repo" value={currentRepo} onChange={onRepoChanged}/>
-                <button
-                    type="button"
-                    style={{marginLeft: 5}}
-                    onClick={onLoadRepoClicked}
-                >
-                    Load Repo
-                </button>
-            </div>
-            <div style={{marginTop: 5}}>
-                <label htmlFor="jumpToPage" style={{marginRight: 5}}>
-                    Issues Page:
-                </label>
-                <input
-                    name="jumpToPage"
-                    value={currentPageText}
-                    onChange={onCurrentPageChanged}
-                />
-                <button
-                    type="button"
-                    style={{marginLeft: 5}}
-                    onClick={onJumpToPageClicked}
-                >
-                    Jump to Page
-                </button>
-            </div>
+            <Grid item container xs={12} direction={"row"}>
+                <Grid item xs={1} >
+                    <Typography variant={"h6"}>Org:</Typography>
+                </Grid>
+                <Grid item xs={11} sm={2}>
+                    <TextField name="org" size="small" variant={"outlined"} onChange={onOrgChanged} value={currentOrg}/>
+                </Grid>
+                <Grid item xs={1} >
+                    <Typography variant={"h6"}>Repo:</Typography>
+                </Grid>
+                <Grid item xs={5} sm={2}>
+                    <TextField name="repo" size="small" variant={"outlined"} onChange={onRepoChanged}
+                               value={currentRepo}/>
+                </Grid>
+                <Grid item xs={6}>
+                    <Button variant={"outlined"}
+                            style={{marginLeft: 5}}
+                            onClick={onLoadRepoClicked}
+                    >
+                        Load Repo
+                    </Button>
+                </Grid>
+            </Grid>
+            <Grid item container xs={12} direction={"row"}>
+                <Grid item xs={1}>
+                    <Typography variant={"h6"}>Page:</Typography>
+                </Grid>
+                <Grid item xs={5} sm={2}>
+                    <TextField name="jumpToPage" size="small" variant={"outlined"} onChange={onCurrentPageChanged}
+                               value={currentPageText}/>
+                </Grid>
+                <Grid item xs={6}>
+                    <Button variant={"outlined"}
+                            style={{marginLeft: 5}}
+                            onClick={onJumpToPageClicked}
+                    >
+                        Jump to Page
+                    </Button>
+                </Grid>
+            </Grid>
         </form>
     )
 }

@@ -9,6 +9,10 @@ import {IssuesCommentsData, issuesCommentsState$} from "../../state/issuesCommen
 import {IssueComments} from "./IssueComments";
 import {useConanState} from "conan-js-core";
 import {IssuesCommentsActions} from "../../state/issueCommentsActionsFn";
+import {Button, Divider, Grid, Typography} from "@material-ui/core";
+import {Remarkable} from 'remarkable';
+import {Markdown} from "../../utils/markDown";
+
 
 export interface IDProps {
     org: string;
@@ -38,12 +42,12 @@ export const IssueDetailsPage = ({
     }, []);
 
     const backToIssueListButton = (
-        <button onClick={showIssuesList}>
+        <Button onClick={showIssuesList} variant={"outlined"} color={"secondary"}>
             Back to Issues List
-        </button>
+        </Button>
     );
 
-
+    const md = new Remarkable();
     const comments = commentsState.commentsByIssue[issue.id];
     let renderedComments;
     if (comments) {
@@ -51,20 +55,41 @@ export const IssueDetailsPage = ({
     }
 
     let content = (
-        <div>
-            <h1>{issue.title}</h1>
-            {backToIssueListButton}
-            <IssueMeta issue={issue}/>
-            <IssueLabels labels={issue.labels}/>
-            <hr/>
-            <div>
-                {insertMentionLinks(issue.body)}
-            </div>
-            <hr/>
-            <div>Comments</div>
-            <ul>{renderedComments}
-            </ul>
-        </div>
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <Typography variant={"h3"} color={"primary"}>{issue.title}</Typography>
+            </Grid>
+            <Grid item xs={12}>
+                {backToIssueListButton}
+            </Grid>
+            <Grid item xs={12}>
+                <IssueMeta issue={issue}/>
+            </Grid>
+            <Grid item xs={12}>
+                <IssueLabels labels={issue.labels}/>
+            </Grid>
+            <Grid item container xs={12} spacing={1}>
+                <Grid item xs={1}/>
+                <Grid item xs={11}>
+                    <Typography variant={"body1"} color={"primary"}>
+                        <Markdown text={insertMentionLinks(issue.body)}/>
+                    </Typography>
+                </Grid>
+            </Grid>
+            <Grid item container xs={12} spacing={1}>
+                <Grid item xs={1} />
+                <Grid item xs={10}>
+                    <Divider light/>
+                </Grid>
+                <Grid item xs={1} />
+            </Grid>
+            <Grid item container xs={12} spacing={1}>
+                <Grid item xs={2}/>
+                <Grid item xs={10}>
+                    {renderedComments}
+                </Grid>
+            </Grid>
+        </Grid>
     )
     return <div>{content}</div>
 
