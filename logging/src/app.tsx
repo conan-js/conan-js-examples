@@ -27,10 +27,10 @@ export function LoggingApp(): React.ReactElement {
         loggingFilterName$.do.update(flowEventRule.name);
     }
 
-    const printButtons= (operator, actions): React.ReactElement[] => (
-        actions.map((action, i)=>
+    const printButtons= (operator, actions): React.ReactElement => (
+        <>{actions.map((action, i)=>
             <button key={i} onClick={()=>updateLogging(current => current[operator](action[1]))}>{operator.toUpperCase()} {action[0]}</button>
-        )
+        )}</>
     )
 
     const printButtonsSection= (toPrint): React.ReactElement => (
@@ -39,7 +39,7 @@ export function LoggingApp(): React.ReactElement {
             {['or', 'and'].map (condition=>(
                 <div key={condition}>
                     <b>{condition.toUpperCase()}</b>
-                    {...printButtons (condition, toPrint[1])}
+                    {printButtons (condition, toPrint[1])}
                 </div>
             ))}
         </div>
