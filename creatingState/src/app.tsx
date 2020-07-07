@@ -1,36 +1,44 @@
 import * as React from "react";
 import {Reducers} from "conan-js-core";
 import {Asap, Asaps} from "conan-js-core";
-import {LineComponent} from "../../counter/src/app";
 import {Conan} from "conan-js-core";
+import {LineComponent} from "./components/lineComponents";
 
-export interface CounterReducers extends Reducers<number>{
+export interface CounterReducers extends Reducers<number> {
     $increment(): number;
+
     $decrement(): number;
 }
+
 export interface CounterAsapActions {
     increment(): Asap<number>;
+
     decrement(): Asap<number>;
 }
 
 export interface CounterSimpleActions {
     increment(): void;
+
     decrement(): void;
 }
 
-export interface CounterDeltaReducers extends Reducers<number>{
+export interface CounterDeltaReducers extends Reducers<number> {
     $delta(delta: number): number;
 }
 
 export interface CounterDeltaActions {
     delta(delta: number): void;
+
     decrementTwice(): void;
+
     incrementTwice(): void;
 }
 
 export interface CustomAsyncActions {
     incrementAsync(): Asap<number>;
+
     decrementAsync(): Asap<number>;
+
     delta(delta: number): void;
 }
 
@@ -63,11 +71,11 @@ export function CreateStateApp(): React.ReactElement {
                     method2: `actions.increment() / actions.decrement() `,
                     counterElement: Conan.state<number, CounterReducers, CounterAsapActions>({
                         name: 'conan.state[reducers only]',
-                        reducers: getData =>({
-                            $decrement (): number{
+                        reducers: getData => ({
+                            $decrement(): number {
                                 return getData() - 1;
                             },
-                            $increment (): number{
+                            $increment(): number {
                                 return getData() + 1;
                             }
                         }),
@@ -80,18 +88,18 @@ export function CreateStateApp(): React.ReactElement {
                                 <h1>{number}</h1>
                             </div>)
                         )
-                },{
+                }, {
                     description: `Only actions (Custom Actions)`,
                     method1: `Conan.state<number, {}, CounterSimpleActions>`,
                     method2: `actions.increment() / actions.decrement() `,
-                    counterElement: Conan.state<number, { }, CounterSimpleActions>({
+                    counterElement: Conan.state<number, {}, CounterSimpleActions>({
                         name: 'conan.state[reducers only]',
-                        actions: thread =>({
-                            decrement (): void{
-                                thread.reducers.$update(current=> --current)
+                        actions: thread => ({
+                            decrement(): void {
+                                thread.reducers.$update(current => --current)
                             },
-                            increment (): void{
-                                thread.reducers.$update(current=> ++current)
+                            increment(): void {
+                                thread.reducers.$update(current => ++current)
                             }
                         }),
                         initialData: 0
@@ -103,23 +111,23 @@ export function CreateStateApp(): React.ReactElement {
                                 <h1>{number}</h1>
                             </div>)
                         )
-                },{
+                }, {
                     description: `Auto & Custom Actions`,
                     method1: `Conan.state<number, CounterDeltaReducers, CounterDeltaActions>`,
                     method2: `actions.incrementTwice() / actions.decrementTwice() `,
                     counterElement: Conan.state<number, CounterDeltaReducers, CounterDeltaActions>({
                         name: 'conan.state[reducers only]',
-                        reducers: getData =>({
+                        reducers: getData => ({
                             $delta(delta: number): number {
                                 return getData() + delta;
                             }
                         }),
-                        actions: thread =>({
+                        actions: thread => ({
                             incrementTwice(): void {
-                                thread.reducers.$delta (2);
+                                thread.reducers.$delta(2);
                             },
                             decrementTwice(): void {
-                                thread.reducers.$delta (-2);
+                                thread.reducers.$delta(-2);
                             }
                         }),
                         initialData: 0
@@ -143,8 +151,8 @@ export function CreateStateApp(): React.ReactElement {
             desc={`Conan.state - async`}
             boxes={[{
                 description: `Conan.state [bind]`,
-                method1: `Conan.light<number>('conan.light', 0)`,
-                method2: `actions.update`,
+                method1: `Conan.state<number, CounterReducers, CounterAsapActions>`,
+                method2: `actions.increment / actions.decrement`,
                 counterElement: Conan.state<number, CounterReducers, CounterAsapActions>({
                     name: 'conan.state[reducers only]',
                     reducers: getData => ({
@@ -157,10 +165,10 @@ export function CreateStateApp(): React.ReactElement {
                     }),
                     autoBind: {
                         increment(): Asap<void> {
-                            return Asaps.delayed(undefined, 2000);
+                            return Asaps.delayed(undefined, 2000, 'increment');
                         },
                         decrement(): Asap<void> {
-                            return Asaps.delayed(undefined, 2000);
+                            return Asaps.delayed(undefined, 2000, 'decrement');
                         }
                     },
                     initialData: 0
@@ -173,23 +181,24 @@ export function CreateStateApp(): React.ReactElement {
                         </div>)
                     )
 
-            },{
+            }, {
                 description: `Conan.state [ASAP]`,
-                method1: `Conan.light<number>('conan.light', 0)`,
-                method2: `actions.update`,
+                method1: `Conan.state<number, CounterDeltaReducers, CustomAsyncActions>`,
+                method2: `actions.incrementAsync / actions.decrementAsync`,
                 counterElement: Conan.state<number, CounterDeltaReducers, CustomAsyncActions>({
                     name: 'conan.state[monitor]',
                     reducers: getData => ({
                             $delta(delta: number): number {
                                 return getData() + delta;
-                            }}
+                            }
+                        }
                     ),
-                    actions: thread=>({
+                    actions: thread => ({
                         incrementAsync(): void {
-                            Asaps.delayed<number>(5, 2000).then(value=>thread.reducers.$delta (value));
+                            Asaps.delayed<number>(5, 2000, 'incrementAsync').then(value => thread.reducers.$delta(value));
                         },
                         decrementAsync(): void {
-                            Asaps.delayed<number>(-5, 2000).then(value=>thread.reducers.$delta (value));
+                            Asaps.delayed<number>(-5, 2000, 'decrementAsync').then(value => thread.reducers.$delta(value));
                         }
                     }),
                     initialData: 0
@@ -203,28 +212,29 @@ export function CreateStateApp(): React.ReactElement {
                         </div>)
                     )
 
-            },{
+            }, {
                 description: `Conan.state [monitor]`,
-                method1: `Conan.light<number>('conan.light', 0)`,
-                method2: `actions.update`,
+                method1: `Conan.state<number, CounterDeltaReducers, CustomAsyncActions>`,
+                method2: `actions.incrementAsync / actions.decrementAsync / actions.delta`,
                 counterElement: Conan.state<number, CounterDeltaReducers, CustomAsyncActions>({
                     name: 'conan.state[monitor]',
                     reducers: getData => ({
                             $delta(delta: number): number {
                                 return getData() + delta;
-                            }}
+                            }
+                        }
                     ),
-                    actions: thread=>({
+                    actions: thread => ({
                         incrementAsync(): Asap<number> {
                             return thread.monitor<number>(
-                                Asaps.delayed<number>(5, 2000),
-                                (result, reducers)=> reducers.$delta(result),
+                                Asaps.delayed<number>(5, 2000, 'incrementAsync'),
+                                (result, reducers) => reducers.$delta(result),
                             );
                         },
                         decrementAsync(): Asap<number> {
                             return thread.monitor<number>(
-                                Asaps.delayed<number>(-5, 2000),
-                                (result, reducers)=> reducers.$delta(result),
+                                Asaps.delayed<number>(-5, 2000, 'decrementAsync'),
+                                (result, reducers) => reducers.$delta(result),
                             );
 
                         }
