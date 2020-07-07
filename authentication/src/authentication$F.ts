@@ -1,4 +1,4 @@
-import {Flows} from "conan-js-core";
+import {Conan} from "conan-js-core";
 
 export type Token = string;
 
@@ -15,7 +15,7 @@ export interface AuthenticationFlow {
     authenticationFailed: void;
 }
 
-export let authenticationFlow = Flows.create<AuthenticationFlow>({
+export let authentication$F = Conan.flow<AuthenticationFlow>({
     name: 'authentication',
     statuses: {
         notAuthenticated: {},
@@ -42,5 +42,3 @@ export let authenticationFlow = Flows.create<AuthenticationFlow>({
         name: 'notAuthenticated',
     }
 });
-
-authenticationFlow.start();

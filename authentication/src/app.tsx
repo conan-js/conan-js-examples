@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useState} from "react";
-import {AuthenticationPanel, LoginForm} from "./components/LoginForm";
-import {AuthenticationFlow, authenticationFlow} from "./flow/authenticationFlow";
+import {AuthenticationPanel, LoginForm} from "./LoginForm";
+import {authentication$F, AuthenticationFlow} from "./authentication$F";
 import {useFlow, useFlowStatus} from "conan-js-core";
 
 
@@ -11,11 +11,11 @@ interface AuthenticationState {
 }
 
 const onLoginClicked = (user: string, password: string) => {
-    authenticationFlow.on("notAuthenticated").transitions.$toStatus({name: "authenticating", data: [user, password]});
+    authentication$F.on("notAuthenticated").transitions.$toStatus({name: "authenticating", data: [user, password]});
 }
 
 const onLogoutClicked = () => {
-    authenticationFlow.on("authenticated").transitions.$toStatus("notAuthenticated");
+    authentication$F.on("authenticated").transitions.$toStatus("notAuthenticated");
 }
 
 export const AuthenticationApp = () => {
@@ -25,7 +25,7 @@ export const AuthenticationApp = () => {
     useFlow<
         AuthenticationState,
         AuthenticationFlow
-    >(authenticationFlow, setState, (status, previousState) => ({
+    >(authentication$F, setState, (status, previousState) => ({
         ...previousState,
         current: status.name,
     }));
@@ -34,7 +34,7 @@ export const AuthenticationApp = () => {
         AuthenticationState,
         AuthenticationFlow,
         "authenticating"
-    >(authenticationFlow, "authenticating", setState, (status, previousState) => ({
+    >(authentication$F, "authenticating", setState, (status, previousState) => ({
         ...previousState,
         currentUser: status[0]
     }));
@@ -43,7 +43,7 @@ export const AuthenticationApp = () => {
         AuthenticationState,
         AuthenticationFlow,
         "notAuthenticated"
-    >(authenticationFlow, "notAuthenticated", setState, (status, previousState) => ({
+    >(authentication$F, "notAuthenticated", setState, (status, previousState) => ({
         ...previousState,
         currentUser: ""
     }));
