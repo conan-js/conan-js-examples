@@ -48,7 +48,7 @@ export const LineComponent = ({boxes, desc, desc2}: LineProperties): React.React
         {desc && <h3><b>{desc}</b></h3>}
         {desc2 && <h4>{desc2}</h4>}
         <div style={flexRows}>
-            {boxes.map((boxProps, i)=><BoxComponent {...boxProps} key={i}/>)}
+            {boxes.map((boxProps, i) => <BoxComponent {...boxProps} key={i}/>)}
         </div>
     </div>
 )

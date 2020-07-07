@@ -40,16 +40,16 @@ interface ProductUnitPrice {
 
 export function ComposeStateApp(): React.ReactElement {
     const productQty$ = Conan.state<ProductQty, ProductQtyReducers, ProductQtyActions>({
-        name: 'state$.pipeMap',
-        reducers: getData =>({
-            $decrementQty (): ProductQty{
-                return {...getData(), qty: getData().qty - 1};
-            },
-            $incrementQty (): ProductQty{
-                return {...getData(), qty: getData().qty + 1};
-            }
-        }),
-        initialData: {
+            name: 'state$.pipeMap',
+            reducers: getData => ({
+                $decrementQty(): ProductQty {
+                    return {...getData(), qty: getData().qty - 1};
+                },
+                $incrementQty(): ProductQty {
+                    return {...getData(), qty: getData().qty + 1};
+                }
+            }),
+            initialData: {
             qty: 1,
             id: 'a'
         }
@@ -58,16 +58,16 @@ export function ComposeStateApp(): React.ReactElement {
 
 
     const productPrice$ = Conan.state<ProductUnitPrice, ProductPriceReducers, ProductPriceActions>({
-            name: 'state$.pipeMap',
-            reducers: getData =>({
-                $decrementPriceBy10 (): ProductUnitPrice{
-                    return {...getData(), priceUsd: getData().priceUsd - 10};
-                },
-                $incrementPriceBy10 (): ProductUnitPrice{
-                    return {...getData(), priceUsd: getData().priceUsd + 10};
-                }
-            }),
-            initialData: {
+        name: 'state$.pipeMap',
+        reducers: getData => ({
+            $decrementPriceBy10(): ProductUnitPrice {
+                return {...getData(), priceUsd: getData().priceUsd - 10};
+            },
+            $incrementPriceBy10(): ProductUnitPrice {
+                return {...getData(), priceUsd: getData().priceUsd + 10};
+            }
+        }),
+        initialData: {
                 priceUsd: 5,
                 id: 'a'
             }
