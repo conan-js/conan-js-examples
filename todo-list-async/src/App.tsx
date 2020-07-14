@@ -4,7 +4,7 @@ import {TodoListRenderer} from "./renderers/todoList.renderer";
 import {diContext} from "./context";
 import {TodoListData, VisibilityFilters} from "./domain/domain";
 import {TodoListActions} from "./state/todoListSync.state";
-import {Container, ThemeProvider} from "@material-ui/core";
+import {ThemeProvider} from "@material-ui/core";
 import {theme} from "./styles/styles";
 
 export class TodoListASyncApp extends React.Component {

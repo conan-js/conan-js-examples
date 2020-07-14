@@ -27,10 +27,10 @@ export class OptimisticTodo extends React.Component<TodoProps> {
                 <ListItemIcon>
                     {this.props.completed ? <CheckCircleIcon/> : <CheckCircleOutlineIcon/>}
                 </ListItemIcon>
-                <ListItemText primary={this.props.text} />
+                <ListItemText primary={this.props.text}/>
                 <Button variant="outlined" color="primary" onClick={this.props.toggleCb}>toggle</Button>
                 {this.props.status === OptimisticStatus.IN_PROCESS &&
-                        <><CircularProgress/><CancelIcon onClick={this.props.cancelCb} /></>
+                <><CircularProgress/><CancelIcon onClick={this.props.cancelCb}/></>
                 }
             </ListItem>
         );

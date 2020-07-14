@@ -6,7 +6,7 @@ import {AddTodo} from "./addTodo.renderer";
 import {ConnectedState} from "conan-js-core";
 import {TodoListActions} from "../state/todoListSync.state";
 import {MonitorStatus} from "conan-js-core";
-import {Button, createStyles, Grid, List, Paper, Snackbar, SnackbarContent, Theme, Typography} from "@material-ui/core";
+import {Button, createStyles, Grid, List, SnackbarContent, Theme, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {ICallback, IConsumer} from "conan-js-core";
 
@@ -47,8 +47,9 @@ export function TodoListRenderer({data, actions, monitorInfo}: ConnectedState<To
                 </Grid>
                 {monitorInfo.status !== MonitorStatus.IDLE && monitorInfo.currentAction && monitorInfo.inProgressActions &&
                 <Grid item xs={12} lg={4}>
-                    <SnackbarContent message={`processing: ${monitorInfo.currentAction.name} [${monitorInfo.status}]`} />
-                    <SnackbarContent message={`in progress: [${monitorInfo.inProgressActions.map(it => it.name).join(', ')}]`} />
+                    <SnackbarContent message={`processing: ${monitorInfo.currentAction.name} [${monitorInfo.status}]`}/>
+                    <SnackbarContent
+                        message={`in progress: [${monitorInfo.inProgressActions.map(it => it.name).join(', ')}]`}/>
                 </Grid>
                 }
             </Grid>
