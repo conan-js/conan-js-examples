@@ -17,29 +17,30 @@ export function LoggingApp(): React.ReactElement {
     let loggingFilterName$ = Conan.light('filter name', getLoggingFilter().name);
 
 
-    const setNewLogging= (logger: Rule<FlowEvent>)=> {
+    const setNewLogging = (logger: Rule<FlowEvent>) => {
         loggingFilterName$.do.update(logger.name);
         setLoggingFilter(logger);
     }
 
-    const updateLogging= (logger: IReducer<Rule<FlowEvent>>)=> {
+    const updateLogging = (logger: IReducer<Rule<FlowEvent>>) => {
         let flowEventRule = updateLoggingFilter(logger);
         loggingFilterName$.do.update(flowEventRule.name);
     }
 
-    const printButtons= (operator, actions): React.ReactElement => (
-        <>{actions.map((action, i)=>
-            <button key={i} onClick={()=>updateLogging(current => current[operator](action[1]))}>{operator.toUpperCase()} {action[0]}</button>
+    const printButtons = (operator, actions): React.ReactElement => (
+        <>{actions.map((action, i) =>
+            <button key={i}
+                    onClick={() => updateLogging(current => current[operator](action[1]))}>{operator.toUpperCase()} {action[0]}</button>
         )}</>
     )
 
-    const printButtonsSection= (toPrint): React.ReactElement => (
+    const printButtonsSection = (toPrint): React.ReactElement => (
         <div key={toPrint[0]}>
             <h3>{toPrint[0]}</h3>
-            {['or', 'and'].map (condition=>(
+            {['or', 'and'].map(condition => (
                 <div key={condition}>
                     <b>{condition.toUpperCase()}</b>
-                    {printButtons (condition, toPrint[1])}
+                    {printButtons(condition, toPrint[1])}
                 </div>
             ))}
         </div>
