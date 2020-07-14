@@ -1,6 +1,5 @@
 import * as React from "react";
 import {Issue} from "../../api/gitHub";
-import {UserWithAvatar} from "../../components/UserWithAvatar";
 import {Avatar, Grid, Typography} from "@material-ui/core";
 
 interface IssueProps {
@@ -8,7 +7,7 @@ interface IssueProps {
 }
 
 const IssueState = ({issue: {state}}: IssueProps) => (
-    <Typography variant={"h6"} color={"secondary"} >
+    <Typography variant={"h6"} color={"secondary"}>
         {state}
     </Typography>
 )

@@ -1,6 +1,5 @@
 import * as React from "react";
 import {Remarkable} from 'remarkable';
-import {Issue} from "../api/gitHub";
 
 interface MarkDownProps {
     text: string

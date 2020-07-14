@@ -31,14 +31,14 @@ export function IssuesPageHeader({
                                  }: HeaderProps) {
     if (openIssuesCount === -1) {
         return (
-          <><Typography variant={"h4"}> issues for </Typography><OrgRepo org={org} repo={repo}/></>
+            <><Typography variant={"h4"}> issues for </Typography><OrgRepo org={org} repo={repo}/></>
         )
     } else {
         const pluralizedIssue = openIssuesCount === 1 ? 'issue' : 'issues'
         return (
             <>
                 <Typography variant={"h4"}><span className="header__openIssues">{openIssuesCount}</span> open{' '}
-                {pluralizedIssue} for <OrgRepo org={org} repo={repo}/></Typography>
+                    {pluralizedIssue} for <OrgRepo org={org} repo={repo}/></Typography>
             </>
         )
     }

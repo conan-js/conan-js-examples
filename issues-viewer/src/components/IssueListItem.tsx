@@ -1,21 +1,7 @@
 import * as React from "react";
 import {Issue} from "../api/gitHub";
-import {UserWithAvatar} from "./UserWithAvatar";
 import {IssueLabels} from "./IssueLabels";
-import {
-    Avatar,
-    Box,
-    Card,
-    CardContent,
-    CardMedia,
-    createStyles,
-    Divider,
-    Grid,
-    Theme,
-    Typography
-} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-import {red} from "@material-ui/core/colors";
+import {Avatar, Divider, Grid, Typography} from "@material-ui/core";
 import {shorten} from "../utils/stringUtils";
 
 
@@ -42,7 +28,7 @@ export const IssueListItem = ({
 
     return (
         <Grid item container direction={"row"} justify={"space-around"}>
-            <Grid item xs={3} >
+            <Grid item xs={3}>
                 <Avatar src={user.avatar_url}></Avatar>
                 <Typography color={"textSecondary"}>
                     {user.login}
@@ -56,7 +42,7 @@ export const IssueListItem = ({
                 <Typography color={"secondary"}>({comments} {pluralizedComments})</Typography>
                 <Typography color={"primary"}>{shorten(body)}</Typography>
                 <IssueLabels labels={labels}/>
-                <Divider />
+                <Divider/>
             </Grid>
         </Grid>
     )

@@ -51,13 +51,13 @@ export const RepoSearchForm = ({
     return (
         <form>
             <Grid item container xs={12} direction={"row"}>
-                <Grid item xs={1} >
+                <Grid item xs={1}>
                     <Typography variant={"h6"}>Org:</Typography>
                 </Grid>
                 <Grid item xs={11} sm={2}>
                     <TextField name="org" size="small" variant={"outlined"} onChange={onOrgChanged} value={currentOrg}/>
                 </Grid>
-                <Grid item xs={1} >
+                <Grid item xs={1}>
                     <Typography variant={"h6"}>Repo:</Typography>
                 </Grid>
                 <Grid item xs={5} sm={2}>

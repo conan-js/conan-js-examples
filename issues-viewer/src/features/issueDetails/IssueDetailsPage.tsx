@@ -77,11 +77,11 @@ export const IssueDetailsPage = ({
                 </Grid>
             </Grid>
             <Grid item container xs={12} spacing={1}>
-                <Grid item xs={1} />
+                <Grid item xs={1}/>
                 <Grid item xs={10}>
                     <Divider light/>
                 </Grid>
-                <Grid item xs={1} />
+                <Grid item xs={1}/>
             </Grid>
             <Grid item container xs={12} spacing={1}>
                 <Grid item xs={2}/>
